@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 Plugin Name: New Album Gallery
 Plugin URI: https://awplife.com/
 Description: A Newly Amazing Different Most Powerful Responsive Easy To Use Album Gallery Plugin For WordPress
-Version: 1.6.3
+Version: 1.6.4
 Author: A WP Life
 Author URI: https://awplife.com/
 Text Domain: new-album-gallery
@@ -44,7 +44,7 @@ if (!class_exists('Awl_Album_Gallery')) {
 		{
 
 			// Plugin Version
-			define('AG_PLUGIN_VER', '1.6.3');
+			define('AG_PLUGIN_VER', '1.6.4');
 
 			// Plugin Text Domain
 			define('AGP_TXTDM', 'new-album-gallery');
@@ -68,7 +68,6 @@ if (!class_exists('Awl_Album_Gallery')) {
 		 */
 		protected function _hooks()
 		{
-
 			// Load Text Domain
 			add_action('plugins_loaded', array($this, '_load_textdomain'));
 
@@ -96,36 +95,8 @@ if (!class_exists('Awl_Album_Gallery')) {
 
 			add_action('wp_enqueue_scripts', array(&$this, 'enqueue_scripts_in_header'));
 			
-			
-// remove in nex update
-add_action('admin_notices', array(&$this, 'nag_show_update_warning'));
-// remove in nex update
-add_action('after_plugin_row_new-album-gallery/new-album-gallery.php',  array(&$this, 'nag_plugin_update_warning'), 10, 2);
-			
-			
-
 		}//end _hooks()
 		
-// remove in nex update
-public function nag_show_update_warning() {
-    ?>
-    <div class="notice notice-error">
-        <p><strong>Warning:</strong> The next update of <strong>New Album Gallery</strong> may introduce significant changes. Please update and save each gallery by pressing the blue <strong>Update</strong> button one by one for every gallery within a week to prevent data loss.</p>
-    </div>
-    <?php
-}
-// remove in nex update
-function nag_plugin_update_warning($plugin_file, $plugin_data) {
-    if ($plugin_file == plugin_basename(__FILE__)) {
-        echo '<tr class="plugin-update-tr"><td colspan="3" class="plugin-update colspanchange">';
-        echo '<div class="update-message notice-error notice-alt" style="padding: 10px; border-left: 4px solid #ffba00;">';
-        echo '<p><strong>Warning:</strong> The next update of <strong>New Album Gallery</strong> may introduce significant changes. Please update and save each gallery by pressing the blue <strong>Update</strong> button one by one for every gallery within a week to prevent data loss.</p>';
-        echo '</div>';
-        echo '</td></tr>';
-    }
-}
-
-
 		public function enqueue_scripts_in_header()
 		{
 			wp_enqueue_script('jquery');

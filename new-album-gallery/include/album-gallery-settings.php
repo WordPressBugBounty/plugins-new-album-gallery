@@ -52,38 +52,11 @@ wp_enqueue_style('awl-font-awesome-min-css', AG_PLUGIN_URL . 'assets/css/font-aw
 						<?php
 						$post_id = esc_attr($post->ID);
 
-						function is_ag_serialized($str)
-						{
-							return($str == serialize(false) || @unserialize($str) !== false);
-						}
-
-						// Retrieve the base64 encoded data
-						$encodedData = get_post_meta($post_id, 'awl_ag_settings_' . $post_id, true);
-
-						// Decode the base64 encoded data
-						$decodedData = base64_decode($encodedData);
-
-						// Check if the data is serialized
-						if (is_ag_serialized($decodedData)) {
-
-							// The data is serialized, so unserialize it
-							$album_gallery_settings = unserialize($decodedData);
-							// Optionally, convert the unserialized data to JSON and save it back in base64 encoding for future access
-							// This step is optional but recommended to transition your data format
-						
-							$jsonEncodedData = json_encode($album_gallery_settings);
-							update_post_meta($post_id, 'awl_ag_settings_' . $post_id, $jsonEncodedData);
-
-							// Now, to use the newly saved format, fetch and decode again
-							$encodedData = get_post_meta($post_id, 'awl_ag_settings_' . $post_id, true);
-							$album_gallery_settings = json_decode(($encodedData), true);
-
-						} else {
-							// Assume the data is in JSON format
-							$jsonData = get_post_meta($post_id, 'awl_ag_settings_' . $post_id, true);
-							// Decode the JSON string into an associative array
-							$album_gallery_settings = json_decode($jsonData, true); // Ensure true is passed to get an associative array
-						}
+						// Assume the data is in JSON format
+						$jsonData = get_post_meta($post_id, 'awl_ag_settings_' . $post_id, true);
+						// Decode the JSON string into an associative array
+						$album_gallery_settings = json_decode($jsonData, true); // Ensure true is passed to get an associative array
+					
 						if (isset($album_gallery_settings['image-slide-ids'])) {
 							$count = 0;
 							foreach ($album_gallery_settings['image-slide-ids'] as $id) {
