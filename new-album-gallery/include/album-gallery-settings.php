@@ -445,7 +445,7 @@ wp_enqueue_style('awl-font-awesome-min-css', AG_PLUGIN_URL . 'assets/css/font-aw
 					<a href="https://awplife.com/demo/album-gallery-premium/" target="_blank"
 						class="button button-primary button-hero load-customize hide-if-no-customize">Check Live
 						Demo</a>
-					<a href="https://awplife.com/demo/album-gallery-premium-admin-demo/" target="_blank"
+					<a href="https://awplife.com/demo/album-gallery-premium/how-to-test-premium-plugin/" target="_blank"
 						class="button button-primary button-hero load-customize hide-if-no-customize">Try Pro
 						Version</a>
 				</div>
