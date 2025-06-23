@@ -4,7 +4,7 @@ Donate link: https://paypal.me/awplife
 Tags: gallery, album gallery, video gallery, carousel, responsive gallery
 Requires at least: 4.0
 Tested up to: 6.8.1
-Stable tag: 1.6.6
+Stable tag: 1.6.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,6 +86,9 @@ Please post your question on plugin support forum
 https://wordpress.org/support/plugin/new-album-gallery/
 
 == Changelog ==
+
+= 1.6.7 =
+* Text domain error fixed.
 
 = 1.6.6 =
 * Testing plugin for WordPress 6.8.1

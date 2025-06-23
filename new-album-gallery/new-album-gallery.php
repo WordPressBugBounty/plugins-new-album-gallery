@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 Plugin Name: New Album Gallery
 Plugin URI: https://awplife.com/
 Description: A Newly Amazing Different Most Powerful Responsive Easy To Use Album Gallery Plugin For WordPress
-Version: 1.6.6
+Version: 1.6.7
 Author: A WP Life
 Author URI: https://awplife.com/
 Text Domain: new-album-gallery
@@ -44,13 +44,13 @@ if (!class_exists('Awl_Album_Gallery')) {
 		{
 
 			// Plugin Version
-			define('AG_PLUGIN_VER', '1.6.6');
+			define('AG_PLUGIN_VER', '1.6.7');
 
 			// Plugin Text Domain
 			define('AGP_TXTDM', 'new-album-gallery');
 
 			// Plugin Name
-			define('AG_PLUGIN_NAME', __('Album Gallery', AGP_TXTDM));
+			define('AG_PLUGIN_NAME', 'Album Gallery');
 
 			// Plugin Slug
 			define('AG_PLUGIN_SLUG', 'album_gallery');
