@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 Plugin Name: New Album Gallery
 Plugin URI: https://awplife.com/
 Description: A Newly Amazing Different Most Powerful Responsive Easy To Use Album Gallery Plugin For WordPress
-Version: 1.6.9
+Version: 1.7.0
 Author: A WP Life
 Author URI: https://awplife.com/
 Text Domain: new-album-gallery
@@ -44,7 +44,7 @@ if (!class_exists('Awl_Album_Gallery')) {
 		{
 
 			// Plugin Version
-			define('AG_PLUGIN_VER', '1.6.9');
+			define('AG_PLUGIN_VER', '1.7.0');
 
 			// Plugin Text Domain
 			define('AGP_TXTDM', 'new-album-gallery');
@@ -60,7 +60,6 @@ if (!class_exists('Awl_Album_Gallery')) {
 
 			// Plugin Directory URL
 			define('AG_PLUGIN_URL', plugin_dir_url(__FILE__));
-
 		} // end of constructor function
 
 		/**
@@ -94,9 +93,8 @@ if (!class_exists('Awl_Album_Gallery')) {
 			add_action('manage_album_gallery_posts_custom_column', array(&$this, 'custom_album_gallery_shodrcode_data'), 10, 2);
 
 			add_action('wp_enqueue_scripts', array(&$this, 'enqueue_scripts_in_header'));
-			
-		}//end _hooks()
-		
+		} //end _hooks()
+
 		public function enqueue_scripts_in_header()
 		{
 			wp_enqueue_script('jquery');
@@ -126,18 +124,19 @@ if (!class_exists('Awl_Album_Gallery')) {
 					echo "<input type='text' class='button button-primary' id='album-gallery-shortcode-" . esc_attr($post_id) . "' value='[AGAL id=" . esc_attr($post_id) . "]' style='font-weight:bold; background-color:#32373C; color:#FFFFFF; text-align:center;' />";
 					echo "<input type='button' class='button button-primary' onclick='return ALBUMCopyShortcode" . esc_attr($post_id) . "();' readonly value='Copy' style='margin-left:4px;' />";
 					echo "<span id='copy-msg-" . esc_attr($post_id) . "' class='button button-primary' style='display:none; background-color:#32CD32; color:#FFFFFF; margin-left:4px; border-radius: 4px;'>copied</span>";
-					echo "<script>
-						function ALBUMCopyShortcode$post_id() {
-							var copyText = document.getElementById('album-gallery-shortcode-" . esc_attr($post_id) . "');
+?>
+					<script>
+						function ALBUMCopyShortcode<?php echo esc_js($post_id); ?>() {
+							var copyText = document.getElementById('album-gallery-shortcode-<?php echo esc_js($post_id); ?>');
 							copyText.select();
 							document.execCommand('copy');
-							
+
 							//fade in and out copied message
-							jQuery('#copy-msg-" . esc_attr($post_id) . "').fadeIn('1000', 'linear');
-							jQuery('#copy-msg-" . esc_attr($post_id) . "').fadeOut(2500,'swing');
+							jQuery('#copy-msg-<?php echo esc_js($post_id); ?>').fadeIn('1000', 'linear');
+							jQuery('#copy-msg-<?php echo esc_js($post_id); ?>').fadeOut(2500, 'swing');
 						}
-						</script>
-					";
+					</script>
+			<?php
 					break;
 			}
 		}
@@ -238,6 +237,7 @@ if (!class_exists('Awl_Album_Gallery')) {
 			</style>
 			<script>
 				jQuery("#ag-copy-code").hide();
+
 				function copyToClipboard(element) {
 					var $temp = jQuery("<input>");
 					jQuery("body").append($temp);
@@ -248,30 +248,30 @@ if (!class_exists('Awl_Album_Gallery')) {
 					jQuery("#ag-copy-code").fadeIn();
 				}
 			</script>
-			<?php
+		<?php
 		}
 
 		public function ag_upload_multiple_images($post)
 		{
 			wp_enqueue_script('jquery');
 			wp_enqueue_script('media-upload');
-			wp_enqueue_script('awl-ag-uploader.js', AG_PLUGIN_URL . 'assets/js/awl-ag-uploader.js', array('jquery'));
-			wp_enqueue_style('awl-ag-uploader-css', AG_PLUGIN_URL . 'assets/css/awl-ag-uploader.css');
-			wp_enqueue_style('awl-metabox-css', AG_PLUGIN_URL . 'assets/css/metabox.css');
+			wp_enqueue_script('awl-ag-uploader.js', AG_PLUGIN_URL . 'assets/js/awl-ag-uploader.js', array('jquery'), AG_PLUGIN_VER, true);
+			wp_enqueue_style('awl-ag-uploader-css', AG_PLUGIN_URL . 'assets/css/awl-ag-uploader.css', array(), AG_PLUGIN_VER);
+			wp_enqueue_style('awl-metabox-css', AG_PLUGIN_URL . 'assets/css/metabox.css', array(), AG_PLUGIN_VER);
 
 			wp_enqueue_media();
 
-			?>
+		?>
 			<div id="album-gallery-note">
 				<p><strong>
-						<?php echo esc_html_e('Tips 1'); ?>:
+						<?php esc_html_e('Tips 1', 'new-album-gallery'); ?>:
 					</strong>
-					<?php echo esc_html_e('The First Image Will Be Album Gallery Cover.', 'new-album-gallery'); ?>
+					<?php esc_html_e('The First Image Will Be Album Gallery Cover.', 'new-album-gallery'); ?>
 				</p>
 				<p><strong>
-						<?php echo esc_html_e('Tips 2'); ?>:
+						<?php esc_html_e('Tips 2', 'new-album-gallery'); ?>:
 					</strong>
-					<?php echo esc_html_e(': Always Use Same Size Image (Height & Width Same) Album Cover For Each Gallery.', 'new-album-gallery'); ?>
+					<?php esc_html_e(': Always Use Same Size Image (Height & Width Same) Album Cover For Each Gallery.', 'new-album-gallery'); ?>
 				</p>
 			</div>
 			<div class="row">
@@ -315,7 +315,7 @@ if (!class_exists('Awl_Album_Gallery')) {
 				<?php esc_html_e('ALBUM &nbsp; GALLERY &nbsp; SETTINGS', 'new-album-gallery'); ?>
 			</h1>
 			<hr>
-			<?php
+		<?php
 			require_once 'include/album-gallery-settings.php';
 		}
 
@@ -324,7 +324,7 @@ if (!class_exists('Awl_Album_Gallery')) {
 			$thumbnail = wp_get_attachment_image_src($id, 'medium', true);
 			$attachment = get_post($id); // $id = attachment id
 			$description = $attachment->post_content; // desc
-			?>
+		?>
 			<li class="image-slide">
 				<img class="new-image-slide" src="<?php echo esc_url($thumbnail[0]); ?>"
 					alt="<?php echo esc_html(get_the_title($id)); ?>" style="height: 150px; width: 98%; border-radius: 8px;">
@@ -332,15 +332,15 @@ if (!class_exists('Awl_Album_Gallery')) {
 				<select id="image-slide-type[]" name="image-slide-type[]" class="form-control" style="width: 100%;"
 					value="<?php echo esc_attr($slide_type); ?>">
 					<option value="i" <?php
-					if ($slide_type == 'i') {
-						echo 'selected=selected';
-					}
-					?>>Image</option>
+										if ($slide_type == 'i') {
+											echo 'selected=selected';
+										}
+										?>>Image</option>
 					<option value="v" <?php
-					if ($slide_type == 'v') {
-						echo 'selected=selected';
-					}
-					?>>Video</option>
+										if ($slide_type == 'v') {
+											echo 'selected=selected';
+										}
+										?>>Video</option>
 				</select>
 				<!-- Image Title-->
 				<input type="text" name="image-slide-title[]" id="image-slide-title[]" style="width: 100%;" placeholder="Title Here"
@@ -350,14 +350,17 @@ if (!class_exists('Awl_Album_Gallery')) {
 				<input type="button" name="remove-image-slide" id="remove-image-slide" style="width: 100%;" class="button"
 					value="Delete">
 			</li>
-			<?php
+<?php
 		}
 
 		public function ajax_album_gallery()
 		{
 			if (current_user_can('manage_options')) {
-				if (isset($_POST['ag_add_images_nonce']) && wp_verify_nonce($_POST['ag_add_images_nonce'], 'ag_add_images')) {
-					echo esc_attr($this->_ag_ajax_callback_function($_POST['slideId']));
+				if (isset($_POST['ag_add_images_nonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['ag_add_images_nonce'])), 'ag_add_images')) {
+					$slide_id = isset($_POST['slideId']) ? absint(wp_unslash($_POST['slideId'])) : 0;
+					if ($slide_id) {
+						echo esc_attr($this->_ag_ajax_callback_function($slide_id));
+					}
 				} else {
 					print 'Sorry, your nonce did not verify.';
 					exit;
@@ -369,32 +372,36 @@ if (!class_exists('Awl_Album_Gallery')) {
 		{
 			if (current_user_can('manage_options')) {
 				if (isset($_POST['ag_save_nonce'])) {
-					if (isset($_POST['ag_save_nonce']) && wp_verify_nonce($_POST['ag_save_nonce'], 'ag_save_settings')) {
+					if (wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['ag_save_nonce'])), 'ag_save_settings')) {
 
-						$loop_lightbox = sanitize_text_field($_POST['loop_lightbox']);
-						$hide_close_btn_mobile = sanitize_text_field($_POST['hide_close_btn_mobile']);
-						$remove_bars_mobile = sanitize_text_field($_POST['remove_bars_mobile']);
-						$hide_bars_delay = sanitize_text_field($_POST['hide_bars_delay']);
-						$hover_effects = sanitize_text_field($_POST['hover_effects']);
-						$animations = sanitize_text_field($_POST['animations']);
+						$loop_lightbox = isset($_POST['loop_lightbox']) ? sanitize_text_field(wp_unslash($_POST['loop_lightbox'])) : 'false';
+						$hide_close_btn_mobile = isset($_POST['hide_close_btn_mobile']) ? sanitize_text_field(wp_unslash($_POST['hide_close_btn_mobile'])) : 'false';
+						$remove_bars_mobile = isset($_POST['remove_bars_mobile']) ? sanitize_text_field(wp_unslash($_POST['remove_bars_mobile'])) : 'true';
+						$hide_bars_delay = isset($_POST['hide_bars_delay']) ? sanitize_text_field(wp_unslash($_POST['hide_bars_delay'])) : '3000';
+						$hover_effects = isset($_POST['hover_effects']) ? sanitize_text_field(wp_unslash($_POST['hover_effects'])) : 'stacks';
+						$animations = isset($_POST['animations']) ? sanitize_text_field(wp_unslash($_POST['animations'])) : 'wobble';
 
 						$i = 0;
 						$image_ids = array();
 						$image_titles = array();
 						$image_type = array();
 						$slide_link = array();
-						$image_ids_val = isset($_POST['image-slide-ids']) ? (array) $_POST['image-slide-ids'] : array();
-						$image_ids_val = array_map('sanitize_text_field', $image_ids_val);
+						// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized below via array_map
+						$image_ids_val = isset($_POST['image-slide-ids']) ? array_map('sanitize_text_field', wp_unslash($_POST['image-slide-ids'])) : array();
+
+						$image_titles_val = isset($_POST['image-slide-title']) ? array_map('sanitize_text_field', wp_unslash($_POST['image-slide-title'])) : array();
+						$image_type_val = isset($_POST['image-slide-type']) ? array_map('sanitize_text_field', wp_unslash($_POST['image-slide-type'])) : array();
+						$slide_link_val = isset($_POST['image-slide-link']) ? array_map('sanitize_text_field', wp_unslash($_POST['image-slide-link'])) : array();
 
 						foreach ($image_ids_val as $image_id) {
-							$image_ids[] = sanitize_text_field($_POST['image-slide-ids'][$i]);
-							$image_titles[] = sanitize_text_field($_POST['image-slide-title'][$i]);
-							$image_type[] = sanitize_text_field($_POST['image-slide-type'][$i]);
-							$slide_link[] = sanitize_text_field($_POST['image-slide-link'][$i]);
+							$image_ids[] = $image_id;
+							$image_titles[] = isset($image_titles_val[$i]) ? $image_titles_val[$i] : '';
+							$image_type[] = isset($image_type_val[$i]) ? $image_type_val[$i] : 'i';
+							$slide_link[] = isset($slide_link_val[$i]) ? $slide_link_val[$i] : '';
 
 							$single_image_update = array(
 								'ID' => $image_id,
-								'post_title' => $image_titles[$i],
+								'post_title' => isset($image_titles_val[$i]) ? $image_titles_val[$i] : '',
 							);
 							wp_update_post($single_image_update);
 							$i++;
@@ -421,7 +428,7 @@ if (!class_exists('Awl_Album_Gallery')) {
 						exit;
 					}
 				}
-			}//end _ag_save_settings()
+			} //end _ag_save_settings()
 		}
 
 		public function _ag_column_page()
@@ -439,12 +446,11 @@ if (!class_exists('Awl_Album_Gallery')) {
 		{
 			require 'our-theme/awp-theme.php';
 		}
-
-	}//end class
+	} //end class
 
 	// Plugin Recommend
-	add_action('tgmpa_register', 'AGP_TXTDM_plugin_recommend');
-	function AGP_TXTDM_plugin_recommend()
+	add_action('tgmpa_register', 'nag_plugin_recommend');
+	function nag_plugin_recommend()
 	{
 		$plugins = array(
 			array(
@@ -467,30 +473,29 @@ if (!class_exists('Awl_Album_Gallery')) {
 	}
 
 	// register sf scripts
-	function awp_sf_register_scripts()
+	function nag_register_scripts()
 	{
 
 		wp_enqueue_script('jquery');
 		// js
-		wp_register_script('nag-isotope-js', AG_PLUGIN_URL . 'assets/js/isotope.pkgd.js', array('jquery'), '', true);
-		wp_register_script('nag-imagesloaded-js', AG_PLUGIN_URL . 'assets/js/imagesloaded.pkgd.js', array('jquery'), '', true);
+		wp_register_script('nag-isotope-js', AG_PLUGIN_URL . 'assets/js/isotope.pkgd.js', array('jquery'), AG_PLUGIN_VER, true);
+		wp_register_script('nag-imagesloaded-js', AG_PLUGIN_URL . 'assets/js/imagesloaded.pkgd.js', array('jquery'), AG_PLUGIN_VER, true);
 
 		// PhotoBox Lightbox
 		// layout 1 CSS and JS start
-		wp_register_style('nag-photobox-css', AG_PLUGIN_URL . 'assets/lightbox/photobox/photobox.css'); // v2.2.1
+		wp_register_style('nag-photobox-css', AG_PLUGIN_URL . 'assets/lightbox/photobox/photobox.css', array(), '2.2.1');
 		wp_register_script('nag-photobox-js', AG_PLUGIN_URL . 'assets/lightbox/photobox/jquery.photobox.js', array('jquery'), '2.2.1', true);
 
 		// css
-		wp_register_style('nag-bootstrap-css', AG_PLUGIN_URL . 'assets/css/bootstrap-front.css');
-		wp_register_style('nag-animate-css', AG_PLUGIN_URL . 'assets/css/awl-animate.css');
-		wp_register_style('nag-hover-stack-style-css', AG_PLUGIN_URL . 'assets/css/awl-hover-stack-style.css');
-		wp_register_style('nag-hover-overlay-effects-css', AG_PLUGIN_URL . 'assets/css/awl-hover-overlay-effects.css');
-		wp_register_style('nag-hover-overlay-effects-style-css', AG_PLUGIN_URL . 'assets/css/awl-hover-overlay-effects-style.css');
-
+		wp_register_style('nag-bootstrap-css', AG_PLUGIN_URL . 'assets/css/bootstrap-front.css', array(), AG_PLUGIN_VER);
+		wp_register_style('nag-animate-css', AG_PLUGIN_URL . 'assets/css/awl-animate.css', array(), AG_PLUGIN_VER);
+		wp_register_style('nag-hover-stack-style-css', AG_PLUGIN_URL . 'assets/css/awl-hover-stack-style.css', array(), AG_PLUGIN_VER);
+		wp_register_style('nag-hover-overlay-effects-css', AG_PLUGIN_URL . 'assets/css/awl-hover-overlay-effects.css', array(), AG_PLUGIN_VER);
+		wp_register_style('nag-hover-overlay-effects-style-css', AG_PLUGIN_URL . 'assets/css/awl-hover-overlay-effects-style.css', array(), AG_PLUGIN_VER);
 	}
-	add_action('wp_enqueue_scripts', 'awp_sf_register_scripts');
+	add_action('wp_enqueue_scripts', 'nag_register_scripts');
 
-	$ag_gallery_object = new Awl_Album_Gallery();
+	$nag_gallery_object = new Awl_Album_Gallery();
 	require_once 'shortcode.php';
 	require_once 'class-tgm-plugin-activation.php';
 }

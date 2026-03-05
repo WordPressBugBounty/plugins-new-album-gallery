@@ -16,7 +16,7 @@ while ($loop->have_posts()):
 	$loop->the_post();
 
 	$post_id = esc_attr(get_the_ID());
-	
+
 	// Assume the data is in JSON format
 	$jsonData = get_post_meta($post_id, 'awl_ag_settings_' . $post_id, true);
 	// Decode the JSON string into an associative array
@@ -87,57 +87,57 @@ while ($loop->have_posts()):
 						$link_url = 'https://player.vimeo.com/video/' . $vedio_id;
 					}
 				}
-				?>
+			?>
 				<div class=" <?php echo esc_attr($col_desktops); ?> <?php echo esc_attr($col_large_desktops); ?> <?php echo esc_attr($col_tablets); ?> <?php echo esc_attr($col_phones); ?> 
 			<?php
-			if ($count > 0) {
-				echo 'hidden';
-			}
+				if ($count > 0) {
+					echo 'hidden';
+				}
 			?>
 			">
 					<?php if ($hover_effects == 'none') { ?>
 						<!-- None Effect -->
 						<a href="
 					<?php
-					if ($slide_type == 'i') {
-						echo esc_attr($full[0]);
-					} else if ($slide_type == 'v') {
-						echo esc_url($link_url);
-					}
+						if ($slide_type == 'i') {
+							echo esc_attr($full[0]);
+						} else if ($slide_type == 'v') {
+							echo esc_url($link_url);
+						}
 					?>
 					" <?php
-					if ($slide_type == 'v') {
-						echo 'rel="video"';
-					}
-					?>
+						if ($slide_type == 'v') {
+							echo 'rel="video"';
+						}
+						?>
 							class="swipebox-<?php echo esc_attr($album_gallery_id); ?>" title="<?php echo esc_html($title); ?>">
 							<img src="<?php echo esc_url($medium[0]); ?>" class="animated <?php echo esc_attr($animations); ?>"
 								alt="<?php echo esc_html($album_image_title); ?>">
 						</a>
 					<?php } else if ($hover_effects == 'stacks') { ?>
 
-							<!-- Stacks Hover Effect -->
-							<a href="<?php if ($slide_type == 'i') {
-								echo esc_attr($full[0]);
-							} else if ($slide_type == 'v') {
-								echo esc_url($link_url);
-							}
-							?>
+						<!-- Stacks Hover Effect -->
+						<a href="<?php if ($slide_type == 'i') {
+										echo esc_attr($full[0]);
+									} else if ($slide_type == 'v') {
+										echo esc_url($link_url);
+									}
+									?>
 					" <?php
-					if ($slide_type == 'v') {
-						echo 'rel="video"';
-					}
-					?>
-								class="swipebox-<?php echo esc_attr($album_gallery_id); ?>" title="<?php echo esc_html($title); ?>">
-								<div class="group">
-									<div class="stack twisted animated <?php echo esc_attr($animations); ?>">
-										<img src="<?php echo esc_url($medium[0]); ?>" alt="<?php echo esc_html($album_image_title); ?>">
-									</div>
+						if ($slide_type == 'v') {
+							echo 'rel="video"';
+						}
+						?>
+							class="swipebox-<?php echo esc_attr($album_gallery_id); ?>" title="<?php echo esc_html($title); ?>">
+							<div class="group">
+								<div class="stack twisted animated <?php echo esc_attr($animations); ?>">
+									<img src="<?php echo esc_url($medium[0]); ?>" alt="<?php echo esc_html($album_image_title); ?>">
 								</div>
-							</a>
+							</div>
+						</a>
 					<?php } elseif ($hover_effects == 'overlay') { ?>
-							<!-- Overlay Hover Effect -->
-							<a class="swipebox-<?php echo esc_attr($album_gallery_id); ?>" href="
+						<!-- Overlay Hover Effect -->
+						<a class="swipebox-<?php echo esc_attr($album_gallery_id); ?>" href="
 													<?php
 													if ($slide_type == 'i') {
 														echo esc_attr($full[0]);
@@ -146,25 +146,26 @@ while ($loop->have_posts()):
 													}
 													?>
 					" <?php
-					if ($slide_type == 'v') {
-						echo 'rel="video"';
-					}
-					?> title="<?php echo esc_html($title); ?>">
-								<div class="view fifth-effect animated <?php echo esc_attr($animations); ?>">
-									<img src="<?php echo esc_url($medium[0]); ?>" alt="<?php echo esc_html($album_image_title); ?>">
-									<div class="mask"></div>
-								</div>
-							</a>
+						if ($slide_type == 'v') {
+							echo 'rel="video"';
+						}
+						?> title="<?php echo esc_html($title); ?>">
+							<div class="view fifth-effect animated <?php echo esc_attr($animations); ?>">
+								<img src="<?php echo esc_url($medium[0]); ?>" alt="<?php echo esc_html($album_image_title); ?>">
+								<div class="mask"></div>
+							</div>
+						</a>
 					<?php } ?>
 				</div>
-				<?php
+			<?php
 				$count++;
-			}// end of attachment foreach  ?>
+			} // end of attachment foreach  
+			?>
 		</div>
-		<?php
+<?php
 	} else {
-		_e('Sorry! No Images Found In Album Gallery', AGP_TXTDM);
-		echo ": [AGAL id=$post_id]";
+		esc_html_e('Sorry! No Images Found In Album Gallery', 'new-album-gallery');
+		echo ': [AGAL id=' . esc_attr($post_id) . ']';
 	} // end of if else of slides available check into slider
 
 endwhile;
@@ -176,35 +177,29 @@ endwhile;
 
 	<?php
 	if ($col_large_desktops == 'col-lg-3') {
-		?>
-		.stack {
-			height: 100px;
-		}
+	?>.stack {
+		height: 100px;
+	}
 
-	<?php } ?>
+	<?php } ?><?php
+				if ($col_large_desktops == 'col-lg-2') {
+				?>.fifth-effect .mask {
+		border: 45px solid rgba(0, 0, 0, 0.7);
+	}
+
 	<?php
-	if ($col_large_desktops == 'col-lg-2') {
-		?>
-		.fifth-effect .mask {
-			border: 45px solid rgba(0, 0, 0, 0.7);
-		}
+				} elseif ($col_large_desktops == 'col-lg-3') {
+	?>.fifth-effect .mask {
+		border: 85px solid rgba(0, 0, 0, 0.7);
+	}
 
-		<?php
-	} elseif ($col_large_desktops == 'col-lg-3') {
-		?>
-		.fifth-effect .mask {
-			border: 85px solid rgba(0, 0, 0, 0.7);
-		}
+	<?php
+				} else {
+	?>.fifth-effect .mask {
+		border: 100px solid rgba(0, 0, 0, 0.7);
+	}
 
-		<?php
-	} else {
-		?>
-		.fifth-effect .mask {
-			border: 100px solid rgba(0, 0, 0, 0.7);
-		}
-
-	<?php } ?>
-	.col-lg-12 .stack {
+	<?php } ?>.col-lg-12 .stack {
 		margin: 3% 36%;
 	}
 
@@ -239,89 +234,71 @@ endwhile;
 
 	<?php
 	if ($col_desktops == 'col-md-2') {
-		?>
-		.fifth-effect .mask {
-			border: 45px solid rgba(0, 0, 0, 0.7);
-		}
+	?>.fifth-effect .mask {
+		border: 45px solid rgba(0, 0, 0, 0.7);
+	}
 
-		<?php
-	} elseif ($col_desktops == 'col-md-3') {
-		?>
-		.fifth-effect .mask {
-			border: 85px solid rgba(0, 0, 0, 0.7);
-		}
-
-		<?php
-	} else {
-		?>
-		.fifth-effect .mask {
-			border: 100px solid rgba(0, 0, 0, 0.7);
-		}
-
-	<?php } ?>
 	<?php
-	if ($col_desktops == 'col-xs-12') {
-		?>
-		.fifth-effect .mask {
-			border: 45px solid rgba(0, 0, 0, 0.7);
-		}
+	} elseif ($col_desktops == 'col-md-3') {
+	?>.fifth-effect .mask {
+		border: 85px solid rgba(0, 0, 0, 0.7);
+	}
 
-		<?php
-	} elseif ($col_desktops == 'col-xs-12') {
-		?>
-		.fifth-effect .mask {
-			border: 85px solid rgba(0, 0, 0, 0.7);
-		}
-
-		<?php
+	<?php
 	} else {
-		?>
-		.fifth-effect .mask {
-			border: 100px solid rgba(0, 0, 0, 0.7);
-		}
+	?>.fifth-effect .mask {
+		border: 100px solid rgba(0, 0, 0, 0.7);
+	}
 
-	<?php } ?>
-	.view {
+	<?php } ?><?php
+				if ($col_desktops == 'col-xs-12') {
+				?>.fifth-effect .mask {
+		border: 45px solid rgba(0, 0, 0, 0.7);
+	}
+
+	<?php
+				} elseif ($col_desktops == 'col-xs-12') {
+	?>.fifth-effect .mask {
+		border: 85px solid rgba(0, 0, 0, 0.7);
+	}
+
+	<?php
+				} else {
+	?>.fifth-effect .mask {
+		border: 100px solid rgba(0, 0, 0, 0.7);
+	}
+
+	<?php } ?>.view {
 		<?php
 		if ($col_desktops == 'col-md-12') {
-			?>
-			margin: 0 0 5% 0%;
-			<?php
+		?>margin: 0 0 5% 0%;
+		<?php
 		} elseif ($col_desktops == 'col-md-6') {
 
-			?>
-			margin: 0 0 5% 10%;
-			<?php
+		?>margin: 0 0 5% 10%;
+		<?php
 		} elseif ($col_desktops == 'col-md-4') {
 
-			?>
-			margin: 0 0 5% 0%;
-			<?php
+		?>margin: 0 0 5% 0%;
+		<?php
 		} elseif ($col_desktops == 'col-md-3') {
 
-			?>
-			margin: 0 0 5% 0%;
-		<?php } ?>
-
+		?>margin: 0 0 5% 0%;
+		<?php } ?><?php
+					if ($col_tablets == 'col-sm-12') {
+					?>margin: 5% 33%;
 		<?php
-		if ($col_tablets == 'col-sm-12') {
-			?>
-			margin: 5% 33%;
-			<?php
-		} elseif ($col_tablets == 'col-sm-6') {
+					} elseif ($col_tablets == 'col-sm-6') {
 
-			?>
-			margin: 5% 15%;
-			<?php
-		} elseif ($col_tablets == 'col-sm-4') {
+		?>margin: 5% 15%;
+		<?php
+					} elseif ($col_tablets == 'col-sm-4') {
 
-			?>
-			margin: 5% 0%;
-			<?php
-		} elseif ($col_tablets == 'col-sm-3') {
+		?>margin: 5% 0%;
+		<?php
+					} elseif ($col_tablets == 'col-sm-3') {
 
-			?>
-			margin: 5% 0%;
+		?>margin: 5% 0%;
 		<?php } ?>
 	}
 
@@ -330,11 +307,15 @@ endwhile;
 	}
 </style>
 <script type="application/javascript">
-	jQuery(document).ready(function () {
+	jQuery(document).ready(function() {
 		// PhotoBox
 		jQuery('#album_gallery_<?php echo esc_js($album_gallery_id); ?>').photobox('a');
 		// or with a fancier selector and some settings, and a callback:
-		jQuery('#album_gallery_<?php echo esc_js($album_gallery_id); ?>').photobox('a:first', { thumbs: false, time: 0 }, imageLoaded);
+		jQuery('#album_gallery_<?php echo esc_js($album_gallery_id); ?>').photobox('a:first', {
+			thumbs: false,
+			time: 0
+		}, imageLoaded);
+
 		function imageLoaded() {
 			console.log('image has been loaded...');
 		}
@@ -346,7 +327,7 @@ endwhile;
 			itemSelector: '.album_gallery_single',
 		});
 		// layout Isotope after each image loads
-		$grid.imagesLoaded().progress(function () {
+		$grid.imagesLoaded().progress(function() {
 			$grid.isotope('layout');
 		});
 	});

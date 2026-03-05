@@ -4,7 +4,7 @@ Donate link: https://paypal.me/awplife
 Tags: album gallery, photo gallery, image gallery, video gallery, lightbox
 Requires at least: 4.0
 Tested up to: 6.9
-Stable tag: 1.6.9
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -131,6 +131,19 @@ You can add album galleries to sidebars using a text widget. Go to Appearance > 
 For support questions, visit the [plugin support forum](https://wordpress.org/support/plugin/new-album-gallery/). For Pro version support, contact us through our website.
 
 == Changelog ==
+
+= 1.7.0 =
+* Security: Escaped all output with esc_html_e(), esc_attr(), esc_js(), and esc_url().
+* Security: Added wp_unslash() before sanitize_text_field() for all POST data.
+* Security: Added isset() checks for optional POST fields.
+* Security: Added direct file access protection to docs.php and awp-theme.php.
+* Improvement: Added version parameters to all wp_enqueue_script and wp_enqueue_style calls.
+* Improvement: Prefixed global functions and variables with nag_ for WordPress coding standards.
+* Improvement: Replaced wp_reset_query() with wp_reset_postdata() in shortcode.php.
+* Improvement: Fixed plugin name mismatch between header and readme.txt.
+* New: Completely redesigned documentation page with 12-section tutorial.
+* New: Redesigned Upgrade to Pro tab with feature cards and comparison table.
+* Tested with WordPress 6.9.
 
 = 1.6.9 =
 * Testing plugin for WordPress 6.9
