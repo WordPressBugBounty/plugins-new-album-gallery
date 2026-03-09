@@ -4,7 +4,7 @@ Donate link: https://paypal.me/awplife
 Tags: album gallery, photo gallery, image gallery, video gallery, lightbox
 Requires at least: 4.0
 Tested up to: 6.9
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -131,6 +131,15 @@ You can add album galleries to sidebars using a text widget. Go to Appearance > 
 For support questions, visit the [plugin support forum](https://wordpress.org/support/plugin/new-album-gallery/). For Pro version support, contact us through our website.
 
 == Changelog ==
+
+= 1.7.1 =
+* Fix: Resolved invalid PHP function name in TGM Plugin Activation library.
+* Fix: Renamed invalid $GLOBALS key with hyphens to safe underscore-based key.
+* Fix: Removed @ error suppression operator on is_readable().
+* Security: Sanitized all $_REQUEST, $_GET superglobal access with sanitize_text_field() and wp_unslash().
+* Improvement: Added translators comments to all _n_noop() calls for WordPress i18n standards.
+* Compatibility: Added #[\ReturnTypeWillChange] attributes for PHP 8.1+ compatibility.
+* Tested with WordPress 6.9.
 
 = 1.7.0 =
 * Security: Escaped all output with esc_html_e(), esc_attr(), esc_js(), and esc_url().

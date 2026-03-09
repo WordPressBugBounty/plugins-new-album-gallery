@@ -347,52 +347,55 @@ if (! class_exists('TGM_Plugin_Activation')) {
 				/* translators: %s: plugin name. */
 				'updating'                        => __('Updating Plugin: %s', 'new-album-gallery'),
 				'oops'                            => __('Something went wrong with the plugin API.', 'new-album-gallery'),
+				/* translators: 1: plugin name(s). */
 				'notice_can_install_required'     => _n_noop(
-					/* translators: 1: plugin name(s). */
 					'This theme requires the following plugin: %1$s.',
 					'This theme requires the following plugins: %1$s.',
 					'new-album-gallery'
 				),
+				/* translators: 1: plugin name(s). */
 				'notice_can_install_recommended'  => _n_noop(
-					/* translators: 1: plugin name(s). */
 					'This theme recommends the following plugin: %1$s.',
 					'This theme recommends the following plugins: %1$s.',
 					'new-album-gallery'
 				),
+				/* translators: 1: plugin name(s). */
 				'notice_ask_to_update'            => _n_noop(
-					/* translators: 1: plugin name(s). */
 					'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.',
 					'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.',
 					'new-album-gallery'
 				),
+				/* translators: 1: plugin name(s). */
 				'notice_ask_to_update_maybe'      => _n_noop(
-					/* translators: 1: plugin name(s). */
 					'There is an update available for: %1$s.',
 					'There are updates available for the following plugins: %1$s.',
 					'new-album-gallery'
 				),
+				/* translators: 1: plugin name(s). */
 				'notice_can_activate_required'    => _n_noop(
-					/* translators: 1: plugin name(s). */
 					'The following required plugin is currently inactive: %1$s.',
 					'The following required plugins are currently inactive: %1$s.',
 					'new-album-gallery'
 				),
+				/* translators: 1: plugin name(s). */
 				'notice_can_activate_recommended' => _n_noop(
-					/* translators: 1: plugin name(s). */
 					'The following recommended plugin is currently inactive: %1$s.',
 					'The following recommended plugins are currently inactive: %1$s.',
 					'new-album-gallery'
 				),
+				/* translators: 1: number of plugins. */
 				'install_link'                    => _n_noop(
 					'Begin installing plugin',
 					'Begin installing plugins',
 					'new-album-gallery'
 				),
+				/* translators: 1: number of plugins. */
 				'update_link'                     => _n_noop(
 					'Begin updating plugin',
 					'Begin updating plugins',
 					'new-album-gallery'
 				),
+				/* translators: 1: number of plugins. */
 				'activate_link'                   => _n_noop(
 					'Begin activating plugin',
 					'Begin activating plugins',
@@ -535,7 +538,7 @@ if (! class_exists('TGM_Plugin_Activation')) {
 		public function overload_textdomain_mofile($mofile, $domain)
 		{
 			// Exit early if not our domain, not a WP_LANG_DIR load or if the file exists and is readable.
-			if ('new-album-gallery' !== $domain || false === strpos($mofile, WP_LANG_DIR) || @is_readable($mofile)) {
+			if ('new-album-gallery' !== $domain || false === strpos($mofile, WP_LANG_DIR) || is_readable($mofile)) {
 				return $mofile;
 			}
 
@@ -656,7 +659,7 @@ if (! class_exists('TGM_Plugin_Activation')) {
 				return;
 			}
 
-			if (isset($_REQUEST['tab']) && 'plugin-information' === $_REQUEST['tab']) {
+			if (isset($_REQUEST['tab']) && 'plugin-information' === sanitize_text_field(wp_unslash($_REQUEST['tab']))) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				// Needed for install_plugin_information().
 				require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 
@@ -819,12 +822,12 @@ if (! class_exists('TGM_Plugin_Activation')) {
 		 */
 		protected function do_plugin_install()
 		{
-			if (empty($_GET['plugin'])) {
+			if (empty($_GET['plugin'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				return false;
 			}
 
 			// All plugin information will be stored in an array for processing.
-			$slug = $this->sanitize_key(urldecode(wp_unslash($_GET['plugin'])));
+			$slug = $this->sanitize_key(urldecode(sanitize_text_field(wp_unslash($_GET['plugin'])))); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 			if (! isset($this->plugins[$slug])) {
 				return false;
@@ -1773,7 +1776,7 @@ if (! class_exists('TGM_Plugin_Activation')) {
 		 */
 		protected function is_tgmpa_page()
 		{
-			return isset($_GET['page']) && $this->menu === $_GET['page'];
+			return isset($_GET['page']) && $this->menu === sanitize_text_field(wp_unslash($_GET['page'])); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		}
 
 		/**
@@ -2185,7 +2188,7 @@ if (! class_exists('TGM_Plugin_Activation')) {
 		 */
 		function load_tgm_plugin_activation()
 		{
-			$GLOBALS['new-album-gallery'] = TGM_Plugin_Activation::get_instance();
+			$GLOBALS['tgmpa'] = TGM_Plugin_Activation::get_instance();
 		}
 	}
 
@@ -2196,7 +2199,7 @@ if (! class_exists('TGM_Plugin_Activation')) {
 	}
 }
 
-if (! function_exists('new-album-gallery')) {
+if (! function_exists('tgmpa')) {
 	/**
 	 * Helper function to register a collection of required plugins.
 	 *
@@ -2208,7 +2211,7 @@ if (! function_exists('new-album-gallery')) {
 	 */
 	function tgmpa($plugins, $config = array())
 	{
-		$instance = call_user_func(array(get_class($GLOBALS['new-album-gallery']), 'get_instance'));
+		$instance = call_user_func(array(get_class($GLOBALS['tgmpa']), 'get_instance'));
 
 		foreach ($plugins as $plugin) {
 			call_user_func(array($instance, 'register'), $plugin);
@@ -2305,7 +2308,7 @@ if (! class_exists('TGMPA_List_Table')) {
 		 */
 		public function __construct()
 		{
-			$this->tgmpa = call_user_func(array(get_class($GLOBALS['new-album-gallery']), 'get_instance'));
+			$this->tgmpa = call_user_func(array(get_class($GLOBALS['tgmpa']), 'get_instance'));
 
 			parent::__construct(
 				array(
@@ -2315,8 +2318,8 @@ if (! class_exists('TGMPA_List_Table')) {
 				)
 			);
 
-			if (isset($_REQUEST['plugin_status']) && in_array($_REQUEST['plugin_status'], array('install', 'update', 'activate'), true)) {
-				$this->view_context = sanitize_key($_REQUEST['plugin_status']);
+			if (isset($_REQUEST['plugin_status']) && in_array(sanitize_key(wp_unslash($_REQUEST['plugin_status'])), array('install', 'update', 'activate'), true)) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$this->view_context = sanitize_key(wp_unslash($_REQUEST['plugin_status']));
 			}
 
 			add_filter('tgmpa_table_data_items', array($this, 'sort_table_items'));
@@ -2331,6 +2334,7 @@ if (! class_exists('TGMPA_List_Table')) {
 		 *
 		 * @return array CSS classnames.
 		 */
+		#[\ReturnTypeWillChange]
 		public function get_table_classes()
 		{
 			return array('widefat', 'fixed');
@@ -2559,6 +2563,7 @@ if (! class_exists('TGMPA_List_Table')) {
 		 *
 		 * @return array
 		 */
+		#[\ReturnTypeWillChange]
 		public function get_views()
 		{
 			$status_links = array();
@@ -2614,6 +2619,7 @@ if (! class_exists('TGMPA_List_Table')) {
 		 * @param string $column_name The name of the column.
 		 * @return string
 		 */
+		#[\ReturnTypeWillChange]
 		public function column_default($item, $column_name)
 		{
 			return $item[$column_name];
@@ -2629,6 +2635,7 @@ if (! class_exists('TGMPA_List_Table')) {
 		 * @param array $item Array of item data.
 		 * @return string The input checkbox with all necessary info.
 		 */
+		#[\ReturnTypeWillChange]
 		public function column_cb($item)
 		{
 			return sprintf(
@@ -2719,6 +2726,7 @@ if (! class_exists('TGMPA_List_Table')) {
 		 *
 		 * @since 2.2.0
 		 */
+		#[\ReturnTypeWillChange]
 		public function no_items()
 		{
 			echo esc_html__('No plugins to install, update or activate.', 'new-album-gallery') . ' <a href="' . esc_url(self_admin_url()) . '"> ' . esc_html__('Return to the Dashboard', 'new-album-gallery') . '</a>';
@@ -2732,6 +2740,7 @@ if (! class_exists('TGMPA_List_Table')) {
 		 *
 		 * @return array $columns The column names.
 		 */
+		#[\ReturnTypeWillChange]
 		public function get_columns()
 		{
 			$columns = array(
@@ -2842,6 +2851,7 @@ if (! class_exists('TGMPA_List_Table')) {
 		 *
 		 * @param object $item The current item.
 		 */
+		#[\ReturnTypeWillChange]
 		public function single_row($item)
 		{
 			parent::single_row($item);
@@ -2892,6 +2902,7 @@ if (! class_exists('TGMPA_List_Table')) {
 		 *
 		 * @param string $which 'top' or 'bottom' table navigation.
 		 */
+		#[\ReturnTypeWillChange]
 		public function extra_tablenav($which)
 		{
 			if ('bottom' === $which) {
@@ -2906,6 +2917,7 @@ if (! class_exists('TGMPA_List_Table')) {
 		 *
 		 * @return array $actions The bulk actions for the plugin install table.
 		 */
+		#[\ReturnTypeWillChange]
 		public function get_bulk_actions()
 		{
 
@@ -3176,6 +3188,7 @@ if (! class_exists('TGMPA_List_Table')) {
 		 *
 		 * @since 2.2.0
 		 */
+		#[\ReturnTypeWillChange]
 		public function prepare_items()
 		{
 			$columns               = $this->get_columns(); // Get all necessary column information.
@@ -3259,14 +3272,14 @@ if (! function_exists('tgmpa_load_bulk_installer')) {
 	function tgmpa_load_bulk_installer()
 	{
 		// Silently fail if 2.5+ is loaded *after* an older version.
-		if (! isset($GLOBALS['new-album-gallery'])) {
+		if (! isset($GLOBALS['tgmpa'])) {
 			return;
 		}
 
 		// Get TGMPA class instance.
-		$tgmpa_instance = call_user_func(array(get_class($GLOBALS['new-album-gallery']), 'get_instance'));
+		$tgmpa_instance = call_user_func(array(get_class($GLOBALS['tgmpa']), 'get_instance'));
 
-		if (isset($_GET['page']) && $tgmpa_instance->menu === $_GET['page']) {
+		if (isset($_GET['page']) && $tgmpa_instance->menu === sanitize_text_field(wp_unslash($_GET['page']))) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if (! class_exists('Plugin_Upgrader', false)) {
 				require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 			}
@@ -3337,7 +3350,7 @@ if (! function_exists('tgmpa_load_bulk_installer')) {
 					public function __construct($skin = null)
 					{
 						// Get TGMPA class instance.
-						$this->tgmpa = call_user_func(array(get_class($GLOBALS['new-album-gallery']), 'get_instance'));
+						$this->tgmpa = call_user_func(array(get_class($GLOBALS['tgmpa']), 'get_instance'));
 
 						parent::__construct($skin);
 
@@ -3679,7 +3692,7 @@ if (! function_exists('tgmpa_load_bulk_installer')) {
 					public function __construct($args = array())
 					{
 						// Get TGMPA class instance.
-						$this->tgmpa = call_user_func(array(get_class($GLOBALS['new-album-gallery']), 'get_instance'));
+						$this->tgmpa = call_user_func(array(get_class($GLOBALS['tgmpa']), 'get_instance'));
 
 						// Parse default and new args.
 						$defaults = array(
