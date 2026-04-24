@@ -1,5 +1,6 @@
 /* CSS3 STYLE GENERIC */
 .view {
+	width: 100%;
    float: left;
    border: 5px solid #fff;
    overflow: hidden;

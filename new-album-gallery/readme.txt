@@ -1,10 +1,11 @@
-﻿=== Album Gallery ===
+=== Album Gallery ===
 Contributors: awordpresslife, razipathhan, hanif0991, muhammadshahid, fkfaisalkhan007, sharikkhan007, zishlife, FARAZFRANK
 Donate link: https://paypal.me/awplife
 Tags: album gallery, photo gallery, image gallery, video gallery, lightbox
 Requires at least: 4.0
 Tested up to: 6.9
-Stable tag: 1.7.1
+Requires PHP: 5.6
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,31 +36,32 @@ The album gallery works on all devices - desktops, tablets, and phones. Your alb
 
 = Free Features =
 
-* Responsive album gallery design
-* Flexible column layouts (1-6 columns)
-* Lightbox image viewer
-* Video support with embedded players
-* Multiple hover effects
-* Animation effects on load
-* Widget support for sidebars
-* Title bar customization
-* Shortcode for easy embedding
-* Works with all themes
-* Import and export galleries
+* **Responsive Design** - Mobile-friendly grid that adapts to any screen size.
+* **Photo & Video Support** - Showcase high-res images or videos from YouTube and Vimeo.
+* **lightbox Viewer** - Includes the stable, GPL-compliant LightGallery v1.10.0.
+* **Modern UI** - Clean, tabbed admin interface for easy configuration.
+* **Entrance Animations** - Choose from Wobble, Bounce, Flash, Pulse, and more on load.
+* **Two Hover Styles** - Classic Stacks and Overlay effects for album covers.
+* **Skeleton Loading** - Improves perceived performance while images are loading.
+* **Customization** - Control album titles, font sizes, and colors.
+* **Shortcode System** - Easy to embed in any page, post, or widget.
+* **Privacy Focused** - All scripts and assets are stored locally (GDPR compliant).
 
 = Pro Features =
 
-Upgrade to Album Gallery Pro for additional capabilities:
+Upgrade to Album Gallery Pro for the ultimate gallery experience:
 
-* Advanced column layout options
-* Custom gallery thumbnail sizes
-* Extended animation effects library
-* More hover effect styles
-* Video autoplay settings
-* Loop and slideshow settings
-* Color picker for full customization
-* Custom CSS support
-* Priority support
+* **Advance Shortcode [AGAL]** - Display all your albums on a single page with a global shortcode.
+* **Load More & AJAX** - Seamlessly browse hundreds of albums with "Load More" or Scroll loading.
+* **Advanced Lightbox** - Premium experience with modules for Zoom, Fullscreen, and Paging.
+* **Social Sharing** - Let visitors share your images directly to Facebook, Twitter, and Pinterest.
+* **Image Download** - Add a direct download button for your gallery images.
+* **Link Redirection** - Redirect gallery items to custom URLs or internal pages.
+* **Individual Column Logic** - Set specific column counts for Large Desktop, Tablet, and Mobile.
+* **Premium Hover Effects** - Unlock exclusive "twisted" stack styles and advanced overlays.
+* **Deep Linking** - Every image has a unique hash for direct browser access.
+* **Custom CSS Support** - Scoped CSS field for advanced design tweaks.
+* **Priority Ticket Support** - Get expert help with faster response times.
 
 = How It Works =
 
@@ -108,7 +110,7 @@ Absolutely. The album gallery automatically adjusts to fit any screen size. On s
 
 = How many albums can I create? =
 
-There's no limit on the number of albums you can create with the free version. Create as many albums as you need to organize your content.
+There's no limit on the number of albums you can create. Create as many albums as you need to organize your content.
 
 = Can I use Album Gallery with page builders? =
 
@@ -131,6 +133,16 @@ You can add album galleries to sidebars using a text widget. Go to Appearance > 
 For support questions, visit the [plugin support forum](https://wordpress.org/support/plugin/new-album-gallery/). For Pro version support, contact us through our website.
 
 == Changelog ==
+
+= 2.0.0 =
+* Major: Complete rebranding to "Album Gallery" with standardized internal prefixing (ag-, nag-).
+* Architecture: Purged legacy "Premium" code for full WordPress.org repository compliance.
+* Lightbox: Integrated GPL-compliant LightGallery v1.10.0 for improved stability.
+* Lightbox: Removed Zoom and Fullscreen modules to streamline performance.
+* UI/UX: Modernized admin interface with a new tabbed layout and improved responsive controls.
+* Security: Implemented comprehensive data sanitization, unslashing, and nonce verification.
+* Performance: Optimized asset enqueuing and reduced DOM footprint.
+* Compatibility: Added support for PHP 8.1+ and WordPress 6.5+.
 
 = 1.7.1 =
 * Fix: Resolved invalid PHP function name in TGM Plugin Activation library.
@@ -190,4 +202,4 @@ For support questions, visit the [plugin support forum](https://wordpress.org/su
 * Testing plugin for WordPress 6.6.2
 
 == Upgrade Notice ==
-This is an initial release. Start with version 0.0.1 and share your feedback <a href="https://wordpress.org/support/view/plugin-reviews/new-album-gallery//">here</a>.
+This is an initial release. Start with version 2.0.0 and share your feedback <a href="https://wordpress.org/support/view/plugin-reviews/new-album-gallery//">here</a>.

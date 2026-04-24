@@ -4,14 +4,15 @@ Float clearing goodness from Handcrafted CSS book ------------------------------
 * html .group { height: 1%; }
 *:first-child+html .group { min-height: 0px; }
 
+
 /*
 Stacks CSS ----------------------------------------------------------------------------------------------------------- */
 
 /* Layout */
-.stack { float: left; width: inherit;   position: relative; z-index: 10; }
+.stack { float: left; /*width: 300px;*/ margin: 0 15% 15% 0; position: relative; z-index: 10; }
 
 /* Image styles */
-.stack img { max-width: 100%; height: 100%; vertical-align: bottom; border: 5px solid #fff; border-radius: 3px;
+.stack img { max-width: 100%; height: auto; vertical-align: bottom; border: 10px solid #fff; border-radius: 3px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -19,10 +20,14 @@ Stacks CSS ---------------------------------------------------------------------
 	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
-.stack:last-of-type { margin-right: 0; }
+.stack:last-of-type { 
+margin-right: 0;  
+margin-bottom: 0;  
+}
 
 /* Stacks creted by the use of generated content */
 .stack:before, .stack:after { content: ""; border-radius: 3px; width: 100%; height: 100%; position: absolute; border: 10px solid #fff; left: 0;
+background-color: #fff;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -111,23 +116,12 @@ Stacks CSS ---------------------------------------------------------------------
 
 /*
 iPhone and mobile widths --------------------------------------------------------------------------------------------------------------------------- */
-/* ----------- iPhone 5 and 5S ----------- */
-
-/* Portrait and Landscape */ /*
-@media only screen 
-	and (min-device-width: 320px) 
-	and (max-device-width: 568px)
-	and (-webkit-min-device-pixel-ratio: 2) {
-		.stack { width: 100px; height: 100px; margin-bottom: 35px; }
-	}
-/* ----------- iPhone 6 ----------- */
-
-/* Portrait and Landscape */ /*
-@media only screen 
-	and (min-device-width: 375px) 
-	and (max-device-width: 667px) 
-	and (-webkit-min-device-pixel-ratio: 2) { 
-		.stack { width: 100px; height: 100px; margin-bottom: 35px; }
-	} */
-
-
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+	.stack { float: none; /*width: 100px;*/ margin-bottom: 35px; }
+	h1.title { margin: 15px 0; }
+}
+/*iPhone and mobile widths --------------------------------------------------------------------------------------------------------------------------- */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+	.stack { float: none; margin-bottom: 35px; }
+	h1.title { margin: 15px 0; }
+}
