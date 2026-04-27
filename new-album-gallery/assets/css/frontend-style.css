@@ -1,34 +1,53 @@
-/* Outer grid wrapper — only clip horizontal overflow to prevent scrollbar */
-.nag-albums-grid { overflow-x: hidden; position: relative; z-index: 1; clear: both; padding: 20px 0; }
+.nag-albums-grid { 
+    overflow: hidden; 
+    position: relative; 
+    clear: both; 
+}
+.nag-albums-grid::after { 
+    content: ""; 
+    display: table; 
+    clear: both; 
+}
 
 /* Custom Grid System for Album Gallery */
-.awl-ag-row { display: flex; flex-wrap: wrap; margin-left: -20px; margin-right: -20px; box-sizing: border-box; justify-content: center; }
-.awl-ag-col { position: relative; width: 100%; padding-left: 20px; padding-right: 20px; padding-bottom: 40px; box-sizing: border-box; }
+.awl-ag-row { 
+    display: flex; 
+    flex-wrap: wrap; 
+    margin: 0; 
+    box-sizing: border-box; 
+    justify-content: center; 
+}
+.awl-ag-col { 
+    position: relative; 
+    padding: 10px; 
+    box-sizing: border-box; 
+    float: left; 
+}
 
 /* Responsive Breakpoints */
-.col-xs-12 { flex: 0 0 100%; max-width: 100%; }
-.col-xs-6 { flex: 0 0 50%; max-width: 50%; }
-.col-xs-4 { flex: 0 0 33.333%; max-width: 33.333%; }
+.col-xs-12 { flex: 0 0 100%; width: 100%; max-width: 100%; }
+.col-xs-6 { flex: 0 0 50%; width: 50%; max-width: 50%; }
+.col-xs-4 { flex: 0 0 33.333%; width: 33.333%; max-width: 33.333%; }
 
 @media (min-width: 576px) {
-    .col-sm-12 { flex: 0 0 100%; max-width: 100%; }
-    .col-sm-6 { flex: 0 0 50%; max-width: 50%; }
-    .col-sm-4 { flex: 0 0 33.333%; max-width: 33.333%; }
-    .col-sm-3 { flex: 0 0 25%; max-width: 25%; }
+    .col-sm-12 { flex: 0 0 100%; width: 100%; max-width: 100%; }
+    .col-sm-6 { flex: 0 0 50%; width: 50%; max-width: 50%; }
+    .col-sm-4 { flex: 0 0 33.333%; width: 33.333%; max-width: 33.333%; }
+    .col-sm-3 { flex: 0 0 25%; width: 25%; max-width: 25%; }
 }
 @media (min-width: 768px) {
-    .col-md-12 { flex: 0 0 100%; max-width: 100%; }
-    .col-md-6 { flex: 0 0 50%; max-width: 50%; }
-    .col-md-4 { flex: 0 0 33.333%; max-width: 33.333%; }
-    .col-md-3 { flex: 0 0 25%; max-width: 25%; }
-    .col-md-2 { flex: 0 0 16.666%; max-width: 16.666%; }
+    .col-md-12 { flex: 0 0 100%; width: 100%; max-width: 100%; }
+    .col-md-6 { flex: 0 0 50%; width: 50%; max-width: 50%; }
+    .col-md-4 { flex: 0 0 33.333%; width: 33.333%; max-width: 33.333%; }
+    .col-md-3 { flex: 0 0 25%; width: 25%; max-width: 25%; }
+    .col-md-2 { flex: 0 0 16.666%; width: 16.666%; max-width: 16.666%; }
 }
 @media (min-width: 992px) {
-    .col-lg-12 { flex: 0 0 100%; max-width: 100%; }
-    .col-lg-6 { flex: 0 0 50%; max-width: 50%; }
-    .col-lg-4 { flex: 0 0 33.333%; max-width: 33.333%; }
-    .col-lg-3 { flex: 0 0 25%; max-width: 25%; }
-    .col-lg-2 { flex: 0 0 16.666%; max-width: 16.666%; }
+    .col-lg-12 { flex: 0 0 100%; width: 100%; max-width: 100%; }
+    .col-lg-6 { flex: 0 0 50%; width: 50%; max-width: 50%; }
+    .col-lg-4 { flex: 0 0 33.333%; width: 33.333%; max-width: 33.333%; }
+    .col-lg-3 { flex: 0 0 25%; width: 25%; max-width: 25%; }
+    .col-lg-2 { flex: 0 0 16.666%; width: 16.666%; max-width: 16.666%; }
 }
 
 .nag-album-cover { display: block; margin: 0 auto; text-align: center; box-sizing: border-box; }

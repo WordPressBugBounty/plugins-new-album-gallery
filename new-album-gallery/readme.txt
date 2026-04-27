@@ -5,7 +5,7 @@ Tags: album gallery, photo gallery, image gallery, video gallery, lightbox
 Requires at least: 4.0
 Tested up to: 6.9
 Requires PHP: 5.6
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -134,6 +134,11 @@ For support questions, visit the [plugin support forum](https://wordpress.org/su
 
 == Changelog ==
 
+= 2.0.1 =
+* Fix: Optimized shortcode flow to allow multiple independent galleries to sit side-by-side in a single row.
+* Layout: Updated grid CSS to prevent horizontal overflow and improved responsive column widths.
+* Layout: Added clearfix to the main grid container to prevent overlapping with theme content.
+
 = 2.0.0 =
 * Major: Complete rebranding to "Album Gallery" with standardized internal prefixing (ag-, nag-).
 * Architecture: Purged legacy "Premium" code for full WordPress.org repository compliance.
@@ -202,4 +207,4 @@ For support questions, visit the [plugin support forum](https://wordpress.org/su
 * Testing plugin for WordPress 6.6.2
 
 == Upgrade Notice ==
-This is an initial release. Start with version 2.0.0 and share your feedback <a href="https://wordpress.org/support/view/plugin-reviews/new-album-gallery//">here</a>.
+This is an initial release. Start with version 2.0.1 and share your feedback <a href="https://wordpress.org/support/view/plugin-reviews/new-album-gallery//">here</a>.

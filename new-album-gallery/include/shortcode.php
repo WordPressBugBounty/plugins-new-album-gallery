@@ -20,7 +20,7 @@ function awl_album_gallery_shortcode($atts)
         // Individual Gallery
         $output = agp_render_album_gallery($post_id);
         if (!empty($output)) {
-            echo '<div class="awp_center awl-ag-row"><div class="awl-ag-col" style="flex:0 0 100%;max-width:100%;">' . $output . '</div></div>';
+            echo $output;
         }
     }
 
