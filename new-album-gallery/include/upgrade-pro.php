@@ -302,6 +302,24 @@ if (! defined('ABSPATH')) {
 			<p><?php esc_html_e('Get access to exclusive "twisted" stack effects and advanced overlay interactions that make your albums pop.', 'new-album-gallery'); ?></p>
 		</div>
 
+		<!-- Feature 5 -->
+		<div class="nag-pro-feature-card">
+			<div class="nag-pro-feature-icon">
+				<span class="dashicons dashicons-category" style="font-size: 32px; width: 32px; height: 32px;"></span>
+			</div>
+			<h3><?php esc_html_e('Album Categories', 'new-album-gallery'); ?></h3>
+			<p><?php esc_html_e('Create and assign categories to your albums to organize them systematically into distinct groups.', 'new-album-gallery'); ?></p>
+		</div>
+
+		<!-- Feature 6 -->
+		<div class="nag-pro-feature-card">
+			<div class="nag-pro-feature-icon">
+				<span class="dashicons dashicons-tag" style="font-size: 32px; width: 32px; height: 32px;"></span>
+			</div>
+			<h3><?php esc_html_e('Category Shortcodes', 'new-album-gallery'); ?></h3>
+			<p><?php esc_html_e('Display only specific album categories on any page or post with a single custom shortcode.', 'new-album-gallery'); ?></p>
+		</div>
+
 	</div>
 
 	<!-- Comparison Table -->
@@ -385,6 +403,16 @@ if (! defined('ABSPATH')) {
 				</tr>
 				<tr>
 					<td class="nag-comp-feature"><?php esc_html_e('Custom CSS per Gallery', 'new-album-gallery'); ?></td>
+					<td class="nag-comp-cross">✖</td>
+					<td class="nag-comp-check">✔</td>
+				</tr>
+				<tr>
+					<td class="nag-comp-feature"><?php esc_html_e('Album Categories Organization', 'new-album-gallery'); ?></td>
+					<td class="nag-comp-cross">✖</td>
+					<td class="nag-comp-check">✔</td>
+				</tr>
+				<tr>
+					<td class="nag-comp-feature"><?php esc_html_e('Category-Specific Shortcode Filter', 'new-album-gallery'); ?></td>
 					<td class="nag-comp-cross">✖</td>
 					<td class="nag-comp-check">✔</td>
 				</tr>

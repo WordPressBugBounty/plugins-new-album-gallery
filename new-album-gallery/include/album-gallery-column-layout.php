@@ -100,6 +100,23 @@ wp_enqueue_style('awl-ag-modern-admin-css', AG_PLUGIN_URL . 'assets/css/admin-mo
                             </div>
                         </div>
 
+                        <!-- SECTION: Album Title Alignment -->
+                        <?php $title_layout_style = isset($column_opt['title_layout_style']) ? $column_opt['title_layout_style'] : 'default'; ?>
+                        <div class="awl-ag-setting-row">
+                            <div class="awl-ag-setting-label">
+                                <h5><i class="dashicons dashicons-editor-aligncenter"></i> <?php esc_html_e('Album Title Alignment', 'new-album-gallery'); ?></h5>
+                                <p><?php esc_html_e('Configure how album titles align and fit in your grid.', 'new-album-gallery'); ?></p>
+                            </div>
+                            <div class="awl-ag-setting-field">
+                                <select name="title_layout_style" class="ag-modern-select" style="width: 100%; max-width: 300px;">
+                                    <option value="default" <?php selected($title_layout_style, 'default'); ?>><?php esc_html_e('Default (Natural)', 'new-album-gallery'); ?></option>
+                                    <option value="align_height" <?php selected($title_layout_style, 'align_height'); ?>><?php esc_html_e('Even Height (Centering)', 'new-album-gallery'); ?></option>
+                                    <option value="single_line" <?php selected($title_layout_style, 'single_line'); ?>><?php esc_html_e('Single Line (Truncated)', 'new-album-gallery'); ?></option>
+                                    <option value="below_image" <?php selected($title_layout_style, 'below_image'); ?>><?php esc_html_e('Position Below Images', 'new-album-gallery'); ?></option>
+                                </select>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 

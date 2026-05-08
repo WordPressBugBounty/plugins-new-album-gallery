@@ -1,63 +1,187 @@
-.nag-albums-grid { 
-    overflow: hidden; 
-    position: relative; 
-    clear: both; 
+.nag-albums-grid {
+    overflow: hidden;
+    position: relative;
+    clear: both;
 }
-.nag-albums-grid::after { 
-    content: ""; 
-    display: table; 
-    clear: both; 
+
+.nag-albums-grid::after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 /* Custom Grid System for Album Gallery */
-.awl-ag-row { 
-    display: flex; 
-    flex-wrap: wrap; 
-    margin: 0; 
-    box-sizing: border-box; 
-    justify-content: center; 
+.awl-ag-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    box-sizing: border-box;
+    justify-content: center;
 }
-.awl-ag-col { 
-    position: relative; 
-    padding: 10px; 
-    box-sizing: border-box; 
-    float: left; 
+
+.awl-ag-col {
+    position: relative;
+    padding: 10px;
+    box-sizing: border-box;
+    float: left;
 }
 
 /* Responsive Breakpoints */
-.col-xs-12 { flex: 0 0 100%; width: 100%; max-width: 100%; }
-.col-xs-6 { flex: 0 0 50%; width: 50%; max-width: 50%; }
-.col-xs-4 { flex: 0 0 33.333%; width: 33.333%; max-width: 33.333%; }
+.col-xs-12 {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+}
+
+.col-xs-6 {
+    flex: 0 0 50%;
+    width: 50%;
+    max-width: 50%;
+}
+
+.col-xs-4 {
+    flex: 0 0 33.333%;
+    width: 33.333%;
+    max-width: 33.333%;
+}
 
 @media (min-width: 576px) {
-    .col-sm-12 { flex: 0 0 100%; width: 100%; max-width: 100%; }
-    .col-sm-6 { flex: 0 0 50%; width: 50%; max-width: 50%; }
-    .col-sm-4 { flex: 0 0 33.333%; width: 33.333%; max-width: 33.333%; }
-    .col-sm-3 { flex: 0 0 25%; width: 25%; max-width: 25%; }
-}
-@media (min-width: 768px) {
-    .col-md-12 { flex: 0 0 100%; width: 100%; max-width: 100%; }
-    .col-md-6 { flex: 0 0 50%; width: 50%; max-width: 50%; }
-    .col-md-4 { flex: 0 0 33.333%; width: 33.333%; max-width: 33.333%; }
-    .col-md-3 { flex: 0 0 25%; width: 25%; max-width: 25%; }
-    .col-md-2 { flex: 0 0 16.666%; width: 16.666%; max-width: 16.666%; }
-}
-@media (min-width: 992px) {
-    .col-lg-12 { flex: 0 0 100%; width: 100%; max-width: 100%; }
-    .col-lg-6 { flex: 0 0 50%; width: 50%; max-width: 50%; }
-    .col-lg-4 { flex: 0 0 33.333%; width: 33.333%; max-width: 33.333%; }
-    .col-lg-3 { flex: 0 0 25%; width: 25%; max-width: 25%; }
-    .col-lg-2 { flex: 0 0 16.666%; width: 16.666%; max-width: 16.666%; }
+    .col-sm-12 {
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .col-sm-6 {
+        flex: 0 0 50%;
+        width: 50%;
+        max-width: 50%;
+    }
+
+    .col-sm-4 {
+        flex: 0 0 33.333%;
+        width: 33.333%;
+        max-width: 33.333%;
+    }
+
+    .col-sm-3 {
+        flex: 0 0 25%;
+        width: 25%;
+        max-width: 25%;
+    }
 }
 
-.nag-album-cover { display: block; margin: 0 auto; text-align: center; box-sizing: border-box; }
-.nag-trigger { display: block; width: 100%; max-width: 350px; margin: 0 auto; cursor: pointer; text-decoration: none; box-sizing: border-box; }
-.stack { margin: 0 auto !important; width: 100% !important; box-sizing: border-box; }
-.view { margin: 0 auto !important; width: 100% !important; box-sizing: border-box; }
-.view img { border: none !important; border-radius: 0 !important; }
-.group { margin: 0 auto 30px auto !important; height: 280px; }
-.nag-gallery-container { margin-bottom: 30px; box-sizing: border-box; }
-.mask { cursor: pointer; }
+@media (min-width: 768px) {
+    .col-md-12 {
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .col-md-6 {
+        flex: 0 0 50%;
+        width: 50%;
+        max-width: 50%;
+    }
+
+    .col-md-4 {
+        flex: 0 0 33.333%;
+        width: 33.333%;
+        max-width: 33.333%;
+    }
+
+    .col-md-3 {
+        flex: 0 0 25%;
+        width: 25%;
+        max-width: 25%;
+    }
+
+    .col-md-2 {
+        flex: 0 0 16.666%;
+        width: 16.666%;
+        max-width: 16.666%;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-lg-12 {
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .col-lg-6 {
+        flex: 0 0 50%;
+        width: 50%;
+        max-width: 50%;
+    }
+
+    .col-lg-4 {
+        flex: 0 0 33.333%;
+        width: 33.333%;
+        max-width: 33.333%;
+    }
+
+    .col-lg-3 {
+        flex: 0 0 25%;
+        width: 25%;
+        max-width: 25%;
+    }
+
+    .col-lg-2 {
+        flex: 0 0 16.666%;
+        width: 16.666%;
+        max-width: 16.666%;
+    }
+}
+
+.nag-album-cover {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.nag-trigger {
+    display: block;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.stack {
+    margin: 0 auto !important;
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+.view {
+    margin: 0 auto !important;
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+.view img {
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+.group {
+    margin: 0 auto 30px auto !important;
+    height: 280px;
+}
+
+.nag-gallery-container {
+    margin-bottom: 30px;
+    box-sizing: border-box;
+}
+
+.mask {
+    cursor: pointer;
+}
 
 /* Dynamic Variable-based Styling */
 .album-gallery img {
@@ -98,4 +222,36 @@
 .lg-actions .lg-prev:hover:after {
     color: var(--ag-lb-icon-color, #fff) !important;
     opacity: 0.8;
+}
+
+/* Album Title Alignment Styles */
+.nag-title-align_height {
+    min-height: 52px;
+    height: 100px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    /*display: flex !important;*/
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center;
+}
+
+.nag-title-single_line .album_title-dynamic {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: block !important;
+    width: 100%;
+    text-align: center;
+}
+
+.nag-title-below_image {
+    text-align: center;
+    min-height: 52px;
+    height: 100px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    /*display: flex !important;*/
+    align-items: center !important;
+    justify-content: center !important;
 }

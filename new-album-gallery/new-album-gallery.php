@@ -6,7 +6,7 @@ if (! defined('ABSPATH')) exit; // Exit if accessed directly
 Plugin Name: Album Gallery
 Plugin URI: http://awplife.com/
 Description: A responsive album gallery to display your photos and videos in beautiful grid layouts.
-Version: 2.0.1
+Version: 2.0.2
 Author: A WP Life
 Author URI: http://awplife.com/
 Text Domain: new-album-gallery
@@ -14,6 +14,17 @@ Domain Path: /languages
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
+
+// If Premium version is active or loaded, let Premium version handle everything and exit early.
+$active_plugins = (array) get_option('active_plugins', array());
+$active_sitewide_plugins = (array) get_site_option('active_sitewide_plugins', array());
+if (
+	defined('AG_PREMIUM') ||
+	in_array('album-gallery-premium/album-gallery-premium.php', $active_plugins) ||
+	array_key_exists('album-gallery-premium/album-gallery-premium.php', $active_sitewide_plugins)
+) {
+	return;
+}
 
 if (! class_exists('Awl_Album_Gallery')) {
 
@@ -30,7 +41,7 @@ if (! class_exists('Awl_Album_Gallery')) {
 		{
 
 			//Plugin Version
-			define('AG_PLUGIN_VER', '2.0.1');
+			define('AG_PLUGIN_VER', '2.0.2');
 
 			//Plugin Text Domain
 			define('AGP_TXTDM', 'new-album-gallery');
@@ -426,6 +437,7 @@ if (! class_exists('Awl_Album_Gallery')) {
 					'col_tablets'        => isset($form_data['col_tablets']) ? sanitize_text_field($form_data['col_tablets']) : 'col-sm-4',
 					'col_phones'         => isset($form_data['col_phones']) ? sanitize_text_field($form_data['col_phones']) : 'col-xs-6',
 					'skeleton_loading'   => isset($form_data['skeleton_loading']) ? sanitize_text_field($form_data['skeleton_loading']) : 'false',
+					'title_layout_style' => isset($form_data['title_layout_style']) ? sanitize_text_field($form_data['title_layout_style']) : 'default',
 				);
 
 				update_option('album_gallery_column_settings', $settings);

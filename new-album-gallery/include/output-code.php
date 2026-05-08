@@ -131,9 +131,11 @@ function agp_render_album_gallery($post_id)
 
 			<div class="album_wrapper nag-album-cover">
 				
-				<?php if ($album_title_display == "yes") {
+				<?php 
+				$title_layout_style = isset($column_opt['title_layout_style']) ? $column_opt['title_layout_style'] : 'default';
+				if ($album_title_display == "yes" && $title_layout_style !== 'below_image') {
 					$ag_title = get_the_title($current_id); ?>
-					<div class="album_title_div">
+					<div class="album_title_div nag-title-<?php echo esc_attr($title_layout_style); ?>">
 						<p class="album_title-dynamic"><?php echo esc_html($ag_title); ?></p>
 					</div>
 				<?php } ?>
@@ -183,6 +185,13 @@ function agp_render_album_gallery($post_id)
 							<div class="mask"></div>
 						</div>
 					</a>
+				<?php } ?>
+				<?php 
+				if ($album_title_display == "yes" && $title_layout_style === 'below_image') {
+					$ag_title = get_the_title($current_id); ?>
+					<div class="album_title_div nag-title-below_image" style="">
+						<p class="album_title-dynamic"><?php echo esc_html($ag_title); ?></p>
+					</div>
 				<?php } ?>
 		</div>
 		</div>

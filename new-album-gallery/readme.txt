@@ -1,77 +1,70 @@
-=== Album Gallery ===
+=== Album Gallery for Photo & Video ===
 Contributors: awordpresslife, razipathhan, hanif0991, muhammadshahid, fkfaisalkhan007, sharikkhan007, zishlife, FARAZFRANK
 Donate link: https://paypal.me/awplife
 Tags: album gallery, photo gallery, image gallery, video gallery, lightbox
 Requires at least: 4.0
 Tested up to: 6.9
 Requires PHP: 5.6
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Create stunning photo and video albums with responsive layouts, lightbox display, and customizable hover effects.
+An easy-to-use album gallery for Photo & Video display. Includes clean grid layouts, local lightboxes, and custom hover effects.
 
-== Description ==
+== Description: Best Album Gallery for Photo & Video ==
 
-Album Gallery helps you organize and display your photos and videos in attractive album layouts. Whether you're showcasing travel memories, event photos, or product galleries, this album gallery makes it simple to create organized collections that visitors can browse easily.
+Need a clean way to show your media? Our album gallery for Photo & Video makes it simple. 
+
+You can group your images into organized collections. Visitors can browse your grid easily. When they click a cover, a beautiful lightbox opens up. It is fast, fully responsive, and works on all devices. 
 
 **Free Version Demo:** **[Album Gallery](https://awplife.com/demo/album-gallery-free-wordpress-plugin/)**
 **Pro Version Demo:** **[Album Gallery Premium](https://awplife.com/demo/album-gallery-premium/)**
-**Where to Buy:** **[Buy Flickr Album Premium](https://awplife.com/account/signup/album-gallery-premium/)**
+**Where to Buy:** **[Buy Album Gallery Premium](https://awplife.com/account/signup/album-gallery-premium/)**
 
 https://www.youtube.com/watch?v=rUB-1FkBW48
 
-= Why Use Album Gallery? =
-
-Managing multiple images on your website can get messy. Album Gallery solves this by letting you group related photos into albums, similar to how you'd organize a physical photo album. Each album displays as a cover image, and when visitors click on it, they see all the photos inside with a smooth lightbox viewer.
-
-The album gallery works on all devices - desktops, tablets, and phones. Your albums automatically adjust to fit any screen size, so your photos always look good no matter how visitors access your site.
+= Why Choose Our Album Gallery? =
+* **Organized Grid:** Group your related pictures together. Keep your website neat and professional.
+* **Photo & Video Support:** Add high-quality images. You can also embed YouTube or Vimeo videos easily.
+* **Responsive Layout:** The grid adapts to desktops, tablets, and phones automatically. 
+* **Local Assets:** All styles and scripts load from your server. No external tracking is used.
 
 = What You Can Create =
+* **Photo Albums** - Display vacation shots, events, or product catalogs.
+* **Video Playlists** - Share video content with responsive thumbnail previews.
+* **Mixed Media** - Combine images and clips inside the same collection.
 
-* **Photo Albums** - Group vacation photos, family events, or any image collection
-* **Video Albums** - Organize video content with thumbnail previews
-* **Mixed Media Albums** - Combine photos and videos in the same album
-* **Portfolio Galleries** - Showcase your work with hover effects
+= Free Features in the Album Gallery =
+* **Responsive Grid:** Adaptable column layouts for any screen size.
+* **Photo & Video:** Beautiful image display and smooth video streaming.
+* **Local Lightbox:** Fast pop-up viewer with touch navigation.
+* **Animations:** Subtle entrance effects like pulse or fade on page load.
+* **Hover Effects:** Creative stack and overlay designs for cover images.
+* **Perceived Speed:** Skeleton loaders keep visitors engaged during load.
+* **Easy Setup:** Copy and paste shortcodes into any page or post.
 
-= Free Features =
-
-* **Responsive Design** - Mobile-friendly grid that adapts to any screen size.
-* **Photo & Video Support** - Showcase high-res images or videos from YouTube and Vimeo.
-* **lightbox Viewer** - Includes the stable, GPL-compliant LightGallery v1.10.0.
-* **Modern UI** - Clean, tabbed admin interface for easy configuration.
-* **Entrance Animations** - Choose from Wobble, Bounce, Flash, Pulse, and more on load.
-* **Two Hover Styles** - Classic Stacks and Overlay effects for album covers.
-* **Skeleton Loading** - Improves perceived performance while images are loading.
-* **Customization** - Control album titles, font sizes, and colors.
-* **Shortcode System** - Easy to embed in any page, post, or widget.
-* **Privacy Focused** - All scripts and assets are stored locally (GDPR compliant).
-
-= Pro Features =
-
-Upgrade to Album Gallery Pro for the ultimate gallery experience:
-
-* **Advance Shortcode [AGAL]** - Display all your albums on a single page with a global shortcode.
-* **Load More & AJAX** - Seamlessly browse hundreds of albums with "Load More" or Scroll loading.
-* **Advanced Lightbox** - Premium experience with modules for Zoom, Fullscreen, and Paging.
-* **Social Sharing** - Let visitors share your images directly to Facebook, Twitter, and Pinterest.
-* **Image Download** - Add a direct download button for your gallery images.
-* **Link Redirection** - Redirect gallery items to custom URLs or internal pages.
-* **Individual Column Logic** - Set specific column counts for Large Desktop, Tablet, and Mobile.
-* **Premium Hover Effects** - Unlock exclusive "twisted" stack styles and advanced overlays.
-* **Deep Linking** - Every image has a unique hash for direct browser access.
-* **Custom CSS Support** - Scoped CSS field for advanced design tweaks.
-* **Priority Ticket Support** - Get expert help with faster response times.
+= Pro Features for Advanced Layouts =
+* **Global Shortcode:** Display all your albums on one page with pagination.
+* **AJAX Load More:** Infinite scroll or button triggers for larger galleries.
+* **Pro Lightbox:** Zoom, full-screen, and social share buttons.
+* **Deep Linking:** Give each image a unique direct link.
+* **Categories:** Organize your media into separate filterable groups.
+* **Category Shortcodes:** Display only specific album categories on any page with a single custom shortcode.
 
 = How It Works =
+1. Create a new collection from the admin panel.
+2. Upload images or paste video URLs.
+3. Choose your preferred column layout and hover styles.
+4. Copy the custom shortcode.
+5. Paste it on any WordPress page or post.
 
-1. Create a new album from the Album Gallery menu
-2. Upload your photos or add video URLs
-3. Configure display settings (columns, effects, lightbox)
-4. Copy the shortcode and paste it into any page or post
-5. Your album gallery is live
+== Installation of Album Gallery for Photo & Video ==
 
-You can also add album galleries to sidebars using the text widget with shortcodes.
+1. Go to **Plugins** > **Add New** in your admin dashboard.
+2. Search for **Album Gallery**.
+3. Install and activate the plugin.
+4. Click **Add New** to build your first collection.
+5. Paste the shortcode on your site.
 
 == Screenshots ==
 1. Video Gallery Album
@@ -96,50 +89,37 @@ You can also add album galleries to sidebars using the text widget with shortcod
 
 == Frequently Asked Questions ==
 
-= How do I create my first album? =
+= How do I create my first album gallery? =
+Go to the admin menu. Click "Add New" to build an album. Give it a title. Upload your Photo & Video files. Publish the collection. Copy the shortcode and paste it on any page.
 
-After activating the plugin, go to Album Gallery in your WordPress admin menu. Click "Add New" to create a new album. Give your album a title, then click "Add Images" to upload or select photos from your media library. Once you've added your images, publish the album and copy the shortcode to use on any page or post.
+= Can I display both Photo & Video files together? =
+Yes. You can add images and videos to the same album gallery. Simply paste your YouTube or Vimeo links.
 
-= Can I add videos to my albums? =
+= Is the album gallery responsive on mobile? =
+Yes. The grid scales down automatically. Your Photo & Video content will look perfect on any screen.
 
-Yes, Album Gallery supports video content. You can add YouTube and Vimeo videos to your albums. Simply paste the video URL when adding media, and the plugin will display a thumbnail that opens the video in a lightbox when clicked.
+= How many albums can I make? =
+There is no limit. You can create as many album gallery grids as you want.
 
-= Is the album gallery mobile responsive? =
-
-Absolutely. The album gallery automatically adjusts to fit any screen size. On smaller screens, the columns reduce to ensure your images display properly without horizontal scrolling.
-
-= How many albums can I create? =
-
-There's no limit on the number of albums you can create. Create as many albums as you need to organize your content.
-
-= Can I use Album Gallery with page builders? =
-
-Yes, Album Gallery works with page builders like Elementor, Gutenberg, and others. Simply use the shortcode block or text/HTML widget to add your album gallery shortcode.
-
-= How do I customize the lightbox? =
-
-In the album settings, you'll find lightbox configuration options. You can adjust settings like navigation arrows, close button position, and overlay color to match your site's design.
-
-= What's included in the Pro version? =
-
-The Pro version includes advanced column layouts, custom thumbnail sizes, additional animation and hover effects, video autoplay options, color customization, custom CSS support, and priority support. [View the Pro demo](https://awplife.com/demo/album-gallery-premium/) to see all features in action.
-
-= How do I display albums in my sidebar? =
-
-You can add album galleries to sidebars using a text widget. Go to Appearance > Widgets, add a Text widget to your sidebar, and paste the album shortcode. The gallery will display in your sidebar area.
-
-= Where can I get support? =
-
-For support questions, visit the [plugin support forum](https://wordpress.org/support/plugin/new-album-gallery/). For Pro version support, contact us through our website.
+= What comes with the Pro version? =
+The Pro version adds category filters, custom image sizes, deeper lightbox features, and priority support.
 
 == Changelog ==
 
+= 2.0.2 =
+* 2026-05-08
+* New: Added "Album Title Alignment" option to the Global Settings page with support for Default, Even Height, Single Line, or Position Below Images formats.
+* Layout: Standardized CSS classes for layout alignment directly inside external stylesheets.
+* UI/UX: Updated the "Upgrade to Pro" admin dashboard page and comparison lists.
+
 = 2.0.1 =
+* 2026-04-27
 * Fix: Optimized shortcode flow to allow multiple independent galleries to sit side-by-side in a single row.
 * Layout: Updated grid CSS to prevent horizontal overflow and improved responsive column widths.
 * Layout: Added clearfix to the main grid container to prevent overlapping with theme content.
 
 = 2.0.0 =
+* 2026-04-20
 * Major: Complete rebranding to "Album Gallery" with standardized internal prefixing (ag-, nag-).
 * Architecture: Purged legacy "Premium" code for full WordPress.org repository compliance.
 * Lightbox: Integrated GPL-compliant LightGallery v1.10.0 for improved stability.
@@ -207,4 +187,4 @@ For support questions, visit the [plugin support forum](https://wordpress.org/su
 * Testing plugin for WordPress 6.6.2
 
 == Upgrade Notice ==
-This is an initial release. Start with version 2.0.1 and share your feedback <a href="https://wordpress.org/support/view/plugin-reviews/new-album-gallery//">here</a>.
+This is an initial release. Start with version 2.0.2 and share your feedback <a href="https://wordpress.org/support/view/plugin-reviews/new-album-gallery//">here</a>.
