@@ -3,7 +3,7 @@ Contributors: awordpresslife, razipathhan, hanif0991, muhammadshahid, fkfaisalkh
 Donate link: https://paypal.me/awplife
 Tags: album gallery, photo gallery, image gallery, video gallery, lightbox
 Requires at least: 4.0
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 5.6
 Stable tag: 2.0.2
 License: GPLv2 or later
