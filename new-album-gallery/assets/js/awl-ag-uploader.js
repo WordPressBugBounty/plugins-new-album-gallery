@@ -106,13 +106,61 @@ jQuery(function(jQuery) {
                 var $card = $select.closest('.ag-image-slide-card');
                 var $videoField = $card.find('.ag-video-link-field');
                 var $badgeIcon = $card.find('.ag-slide-badge .dashicons');
-                var $badgeText = $card.find('.ag-slide-badge span:last-child');
+                var $fetchWrapper = $card.find('.ag-poster-fetch-wrapper');
 
                 if ($select.val() === 'v') {
                     $badgeIcon.removeClass('dashicons-format-image').addClass('dashicons-video-alt3');
+                    $videoField.show();
+                    $videoField.find('input').attr('placeholder', 'Youtube video URL');
+                    $fetchWrapper.show().css('display', 'flex');
                 } else {
                     $badgeIcon.removeClass('dashicons-video-alt3').addClass('dashicons-format-image');
+                    $videoField.hide();
+                    $videoField.find('input').attr('placeholder', 'Video URL or Redirect Link');
+                    $fetchWrapper.hide();
                 }
+            });
+
+            /**
+             * Fetch Poster Button Click Event (YouTube only)
+             */
+            this.ul.on('click', '.ag-btn-fetch-poster', function(e) {
+                e.preventDefault();
+                var $btn = jQuery(this);
+                var $card = $btn.closest('.ag-image-slide-card');
+                var linkVal = $card.find('input[name="image-slide-link[]"]').val().trim();
+
+                if (!linkVal) {
+                    alert('Please enter a video URL first.');
+                    return;
+                }
+
+                // YouTube Poster Fetch
+                var ytReg = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i;
+                var ytMatch = linkVal.match(ytReg);
+                if (ytMatch && ytMatch[1]) {
+                    var posterUrl = 'https://img.youtube.com/vi/' + ytMatch[1] + '/hqdefault.jpg';
+                    $card.find('.ag-slide-poster-input').val(posterUrl);
+                    $card.find('.ag-slide-thumb-img').attr('src', posterUrl);
+                    $card.find('.ag-btn-revert-poster').css('display', 'flex');
+                    return;
+                }
+
+                alert('Please enter a valid YouTube URL to fetch the poster.');
+            });
+
+            /**
+             * Revert Poster Button Click Event
+             */
+            this.ul.on('click', '.ag-btn-revert-poster', function(e) {
+                e.preventDefault();
+                var $btn = jQuery(this);
+                var $card = $btn.closest('.ag-image-slide-card');
+                var origSrc = $card.find('.ag-slide-thumb-img').data('original-src');
+
+                $card.find('.ag-slide-poster-input').val('');
+                $card.find('.ag-slide-thumb-img').attr('src', origSrc);
+                $btn.hide();
             });
            
         },

@@ -320,6 +320,24 @@ if (! defined('ABSPATH')) {
 			<p><?php esc_html_e('Display only specific album categories on any page or post with a single custom shortcode.', 'new-album-gallery'); ?></p>
 		</div>
 
+		<!-- Feature 7 -->
+		<div class="nag-pro-feature-card">
+			<div class="nag-pro-feature-icon">
+				<span class="dashicons dashicons-video-alt3" style="font-size: 32px; width: 32px; height: 32px;"></span>
+			</div>
+			<h3><?php esc_html_e('YouTube, Vimeo & Self-Hosted Video', 'new-album-gallery'); ?></h3>
+			<p><?php esc_html_e('Play remote YouTube/Vimeo videos or local self-hosted files (.mp4, .webm) inside a responsive, full-screen lightbox.', 'new-album-gallery'); ?></p>
+		</div>
+
+		<!-- Feature 8 -->
+		<div class="nag-pro-feature-card">
+			<div class="nag-pro-feature-icon">
+				<span class="dashicons dashicons-backup" style="font-size: 32px; width: 32px; height: 32px;"></span>
+			</div>
+			<h3><?php esc_html_e('Import & Export Settings', 'new-album-gallery'); ?></h3>
+			<p><?php esc_html_e('Easily export your global configuration and galleries to a JSON file and import them on other sites with a single click.', 'new-album-gallery'); ?></p>
+		</div>
+
 	</div>
 
 	<!-- Comparison Table -->
@@ -346,8 +364,23 @@ if (! defined('ABSPATH')) {
 					<td class="nag-comp-check">✔</td>
 				</tr>
 				<tr>
-					<td class="nag-comp-feature"><?php esc_html_e('YouTube/Vimeo Video Support', 'new-album-gallery'); ?></td>
+					<td class="nag-comp-feature"><?php esc_html_e('YouTube Video Support & Poster Fetching', 'new-album-gallery'); ?></td>
 					<td class="nag-comp-check">✔</td>
+					<td class="nag-comp-check">✔</td>
+				</tr>
+				<tr>
+					<td class="nag-comp-feature"><?php esc_html_e('Vimeo & Self-Hosted Video Support', 'new-album-gallery'); ?></td>
+					<td class="nag-comp-cross">✖</td>
+					<td class="nag-comp-check">✔</td>
+				</tr>
+				<tr>
+					<td class="nag-comp-feature"><?php esc_html_e('Gutenberg Block & Elementor Widget (Single Album)', 'new-album-gallery'); ?></td>
+					<td class="nag-comp-check">✔</td>
+					<td class="nag-comp-check">✔</td>
+				</tr>
+				<tr>
+					<td class="nag-comp-feature"><?php esc_html_e('Gutenberg & Elementor Category Filters, Limits & Pagination', 'new-album-gallery'); ?></td>
+					<td class="nag-comp-cross">✖</td>
 					<td class="nag-comp-check">✔</td>
 				</tr>
 				<tr>
@@ -413,6 +446,11 @@ if (! defined('ABSPATH')) {
 				</tr>
 				<tr>
 					<td class="nag-comp-feature"><?php esc_html_e('Category-Specific Shortcode Filter', 'new-album-gallery'); ?></td>
+					<td class="nag-comp-cross">✖</td>
+					<td class="nag-comp-check">✔</td>
+				</tr>
+				<tr>
+					<td class="nag-comp-feature"><?php esc_html_e('Import & Export Settings', 'new-album-gallery'); ?></td>
 					<td class="nag-comp-cross">✖</td>
 					<td class="nag-comp-check">✔</td>
 				</tr>

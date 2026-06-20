@@ -12,7 +12,7 @@ $author_slug = 'awordpresslife';
 $transient_key = 'ag_our_plugins_data';
 
 // Force refresh the data to apply new categorization rules
-if ( isset($_GET['refresh_plugins']) ) {
+if ( isset($_GET['refresh_plugins']) && isset($_GET['_wpnonce']) && wp_verify_nonce($_GET['_wpnonce'], 'ag_refresh_plugins') ) {
     delete_transient( $transient_key );
 }
 
@@ -47,33 +47,70 @@ if ( false === $plugins ) {
 // Filter and Categorize
 $filtered_plugins = array();
 
+// Define the desired manual position of plugins by slug
+$manual_slug_order = array(
+    'frank-website-seo-checker-and-audit',
+    'frank-responsive-checker',
+    'frank-dead-link-checker',
+    'right-click-disable-or-ban',
+    'frank-schema-markup-generator',
+    'ultimate-portfolio',
+    'hash-converter',
+    'lead-generation-form',
+    'online-job-board',
+    'new-grid-gallery',
+    'new-photo-gallery',
+    'new-image-gallery',
+    'portfolio-filter-gallery',
+    'event-monster'
+);
+
 // List of keywords or slugs for "New Releases"
 $new_keywords = array( 
-    'Ultimate Portfolio', 
-    'Right Click Ban', 
-    'Dead Link Checker', 
-    'Universal Unit Converter', 
-    'Job Board', 
-    'Schema Markup Generator', 
+    'Website SEO Checker',
+    'Responsive Checker',
+    'Dead Link Checker',
+    'Schema Markup Generator',
+    'Right Click Ban',
+    'Ultimate Portfolio',
+    'Universal Unit Converter',
+    'Job Board',
     'Lead Generation Form'
 );
 
 // Fallback Slugs
 $new_slugs = array(
-    'ultimate-portfolio',
-    'right-click-ban',
+    'frank-website-seo-checker-and-audit',
+    'frank-responsive-checker',
     'dead-link-checker',
-    'universal-unit-converter',
-    'job-board',
     'schema-markup-generator',
+    'right-click-ban',
+    'ultimate-portfolio',
+    'universal-unit-converter',
     'lead-generation-form',
     'job-board-manager'
 );
 
-$technical_slugs = array( 'wp-life-companion', 'shortcode-generator', 'dead-link-checker', 'schema-markup-generator', 'right-click-ban' );
+$technical_slugs = array( 
+    'wp-life-companion', 
+    'shortcode-generator', 
+    'dead-link-checker', 
+    'schema-markup-generator', 
+    'right-click-ban',
+    'frank-responsive-checker',
+    'frank-website-seo-checker-and-audit'
+);
 
 // Technical Keywords
-$technical_keywords = array( 'Right Click Ban', 'Dead Link Checker', 'Schema Markup Generator', 'Shortcode Generator', 'Login Page Customizer' );
+$technical_keywords = array(
+    'Website SEO Checker',
+    'Right Click Ban', 
+    'Dead Link Checker', 
+    'Schema Markup Generator', 
+    'Shortcode Generator', 
+    'Login Page Customizer',
+    'Responsive Checker',
+);
 
 // Social Media Keywords
 $social_keywords = array( 'social', 'share', 'facebook', 'instagram', 'twitter', 'tiktok', 'feed', 'icon', 'whatsapp', 'messenger', 'flickr', 'youtube', 'vimeo' );
@@ -178,13 +215,13 @@ foreach ( $plugins as $plugin ) {
     $filtered_plugins[] = (object) $plugin;
 }
 
-// Sort by active installs descending
+// Sort by active installs descending (default for "All" tab on page load)
 usort( $filtered_plugins, function ( $a, $b ) {
     $a = (array) $a;
     $b = (array) $b;
     $a_installs = isset($a['active_installs']) ? (int) $a['active_installs'] : 0;
     $b_installs = isset($b['active_installs']) ? (int) $b['active_installs'] : 0;
-	return $b_installs - $a_installs;
+    return $b_installs - $a_installs;
 } );
 
 ?>
@@ -211,7 +248,7 @@ usort( $filtered_plugins, function ( $a, $b ) {
         <button class="ag-filter-btn" data-filter="social"><?php esc_html_e( 'Social Media', 'new-album-gallery' ); ?></button>
         <button class="ag-filter-btn" data-filter="technical"><?php esc_html_e( 'Technical Tools', 'new-album-gallery' ); ?></button>
         
-        <a href="<?php echo esc_url( add_query_arg( 'refresh_plugins', '1' ) ); ?>" class="ag-refresh-link" title="<?php esc_attr_e( 'Sync with WordPress.org', 'new-album-gallery' ); ?>">
+        <a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'refresh_plugins', '1' ), 'ag_refresh_plugins' ) ); ?>" class="ag-refresh-link" title="<?php esc_attr_e( 'Sync with WordPress.org', 'new-album-gallery' ); ?>">
             <span class="dashicons dashicons-update"></span>
         </a>
     </nav>
@@ -249,8 +286,13 @@ usort( $filtered_plugins, function ( $a, $b ) {
                 
                 // Categories for JS filtering
                 $cat_classes = implode( ' ', array_map( function($c) { return 'cat-' . $c; }, $plugin['ag_categories'] ) );
+                $plugin_slug = isset($plugin['slug']) ? $plugin['slug'] : '';
+                $manual_index = array_search( $plugin_slug, $manual_slug_order );
+                if ( $manual_index === false ) {
+                    $manual_index = 999;
+                }
 				?>
-                <div class="ag-plugin-card <?php echo esc_attr( $cat_classes ); ?>">
+                <div class="ag-plugin-card <?php echo esc_attr( $cat_classes ); ?>" data-installs="<?php echo (int) $active_installs; ?>" data-manual-order="<?php echo (int) $manual_index; ?>">
 					<?php if ( $is_installed ) : ?>
                         <div class="ag-plugin-status"><?php esc_html_e( 'INSTALLED', 'new-album-gallery' ); ?></div>
 					<?php endif; ?>
@@ -300,10 +342,39 @@ jQuery(document).ready(function($) {
         $('.ag-filter-btn').removeClass('active');
         $(this).addClass('active');
         
-        // Filter grid
+        var $container = $('#ag-plugins-container');
+        var $cards = $container.children('.ag-plugin-card');
+        
         if (filter === 'all') {
+            // Sort by active installs descending
+            $cards.sort(function(a, b) {
+                var valA = parseInt($(a).attr('data-installs')) || 0;
+                var valB = parseInt($(b).attr('data-installs')) || 0;
+                return valB - valA;
+            });
+            $container.append($cards);
             $('.ag-plugin-card').fadeIn(300);
         } else {
+            // Sort by manual order ascending
+            $cards.sort(function(a, b) {
+                var valA = $(a).attr('data-manual-order');
+                var valB = $(b).attr('data-manual-order');
+                
+                valA = (valA !== undefined && valA !== '') ? parseInt(valA) : 999;
+                valB = (valB !== undefined && valB !== '') ? parseInt(valB) : 999;
+                
+                if (isNaN(valA)) { valA = 999; }
+                if (isNaN(valB)) { valB = 999; }
+                
+                // If both are not in manual list (both 999), fall back to installs descending
+                if (valA === 999 && valB === 999) {
+                    var instA = parseInt($(a).attr('data-installs')) || 0;
+                    var instB = parseInt($(b).attr('data-installs')) || 0;
+                    return instB - instA;
+                }
+                return valA - valB;
+            });
+            $container.append($cards);
             $('.ag-plugin-card').hide();
             $('.cat-' + filter).fadeIn(300);
         }

@@ -14,6 +14,11 @@ wp_enqueue_style('awl-ag-modern-admin-css', AG_PLUGIN_URL . 'assets/css/admin-mo
 ?>
 
 <div class="awl-ag-settings-wrapper">
+	<!-- Settings Page Loader -->
+	<div class="ag-settings-loader">
+		<div class="ag-settings-loader-spinner"></div>
+	</div>
+	<div class="ag-settings-main-content" style="display: none;">
     <div class="ag-settings-card main-card">
         <div class="ag-card-header">
             <div class="header-title">
@@ -141,4 +146,5 @@ wp_enqueue_style('awl-ag-modern-admin-css', AG_PLUGIN_URL . 'assets/css/admin-mo
             </form>
         </div>
     </div>
+	</div> <!-- .ag-settings-main-content -->
 </div>

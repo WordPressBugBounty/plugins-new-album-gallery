@@ -135,4 +135,18 @@
         });
     });
 
+    // Settings Page Loader Transition
+    function revealSettingsPage() {
+        $('.ag-settings-loader').fadeOut(250, function() {
+            $(this).remove();
+            $('.ag-settings-main-content').fadeIn(250);
+        });
+    }
+
+    if (document.readyState === 'complete') {
+        revealSettingsPage();
+    } else {
+        $(window).on('load', revealSettingsPage);
+    }
+
 })(jQuery);

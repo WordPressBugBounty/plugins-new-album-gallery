@@ -11,7 +11,6 @@ add_shortcode('AGAL', 'awl_album_gallery_shortcode');
 function awl_album_gallery_shortcode($atts)
 {
     agp_enqueue_frontend_assets_once();
-    ob_start();
 
     // Check if ID is provided
     $post_id = isset($atts['id']) ? (int) $atts['id'] : null;
@@ -20,9 +19,9 @@ function awl_album_gallery_shortcode($atts)
         // Individual Gallery
         $output = agp_render_album_gallery($post_id);
         if (!empty($output)) {
-            echo $output;
+            return $output;
         }
     }
 
-    return ob_get_clean();
+    return '';
 }

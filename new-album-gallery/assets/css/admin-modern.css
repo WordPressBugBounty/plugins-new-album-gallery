@@ -1464,3 +1464,70 @@
         width: 50px;
     }
 }
+
+/* Modern Uploader Card Buttons (Fetch/Revert Poster) */
+.ag-btn-fetch-poster-modern {
+    background: var(--ag-primary) !important;
+    border: none !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    height: 32px !important;
+    line-height: 30px !important;
+    border-radius: var(--ag-radius-sm) !important;
+    box-shadow: 0 2px 4px rgba(79, 70, 229, 0.15) !important;
+    transition: var(--ag-transition) !important;
+}
+
+.ag-btn-fetch-poster-modern:hover:not(:disabled) {
+    background: var(--ag-primary-hover) !important;
+    box-shadow: 0 4px 8px rgba(79, 70, 229, 0.25) !important;
+    transform: translateY(-1px);
+    color: #fff !important;
+}
+
+.ag-btn-fetch-poster-modern:disabled {
+    background: #cbd5e1 !important;
+    color: #94a3b8 !important;
+    cursor: not-allowed !important;
+}
+
+.ag-btn-revert-poster-modern {
+    background: #fff !important;
+    border: 1px solid #fca5a5 !important;
+    color: #ef4444 !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    height: 32px !important;
+    line-height: 30px !important;
+    border-radius: var(--ag-radius-sm) !important;
+    transition: var(--ag-transition) !important;
+}
+
+.ag-btn-revert-poster-modern:hover {
+    background: #fee2e2 !important;
+    border-color: #ef4444 !important;
+    color: #b91c1c !important;
+}
+
+/* Settings Page Loader Overlay & Spinner */
+.ag-settings-loader {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 400px !important;
+    width: 100% !important;
+    background: var(--ag-card-bg, #ffffff) !important;
+    border-radius: var(--ag-radius, 12px) !important;
+    border: 1px solid var(--ag-border, #e2e8f0) !important;
+    box-sizing: border-box !important;
+}
+
+.ag-settings-loader-spinner {
+    width: 45px !important;
+    height: 45px !important;
+    border: 3.5px solid rgba(79, 70, 229, 0.1) !important;
+    border-top-color: var(--ag-primary, #4f46e5) !important;
+    border-radius: 50% !important;
+    animation: ag-spin 0.8s linear infinite !important;
+}

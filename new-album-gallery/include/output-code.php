@@ -72,6 +72,7 @@ function agp_render_album_gallery($post_id)
 			$details = get_post($attachment_id);
 			$stype = isset($album_gallery_settings['image-slide-type'][$count]) ? $album_gallery_settings['image-slide-type'][$count] : 'i';
 			$slink = isset($album_gallery_settings['image-slide-link'][$count]) ? $album_gallery_settings['image-slide-link'][$count] : '';
+			$slide_poster = isset($album_gallery_settings['image-slide-poster'][$count]) ? $album_gallery_settings['image-slide-poster'][$count] : '';
 			
 			$link_url = $full[0];
 			if ($stype == 'v') {
@@ -89,10 +90,11 @@ function agp_render_album_gallery($post_id)
 			// LightGallery expected structure for dynamic mode
 			$caption = ($image_title === "yes" && !empty($details->post_title)) ? '<h4>' . esc_html($details->post_title) . '</h4>' : '';
 			
+			$thumb_url = !empty($slide_poster) ? $slide_poster : $thumb[0];
 
 			$gallery_item = array(
 				'src'     => esc_url($link_url),
-				'thumb'   => esc_url($thumb[0]),
+				'thumb'   => esc_url($thumb_url),
 				'subHtml' => !empty($caption) ? $caption : ' ',
 			);
 			if ($stype == 'v') {
@@ -148,6 +150,7 @@ function agp_render_album_gallery($post_id)
 				$full_img = wp_get_attachment_image_src($first_id, 'full', true);
 				$medium_img = wp_get_attachment_image_src($first_id, 'medium', true);
 				$attach_details = get_post($first_id);
+				$first_poster = isset($album_gallery_settings['image-slide-poster'][0]) ? $album_gallery_settings['image-slide-poster'][0] : '';
 				
 				// Determine thumbnail URL based on settings
 				$thumbnail_url = $medium_img[0];
@@ -158,6 +161,10 @@ function agp_render_album_gallery($post_id)
 				$cover_href = $gallery_data[0]['src'];
 				$cover_type = (isset($gallery_data[0]['video']) && $gallery_data[0]['video']) ? 'video' : 'image';
 				$cover_title = esc_attr($attach_details->post_title);
+
+				if ($cover_type === 'video' && !empty($first_poster)) {
+					$thumbnail_url = $first_poster;
+				}
 				?>
 
 				<?php if ($hover_effects == "none") { ?>

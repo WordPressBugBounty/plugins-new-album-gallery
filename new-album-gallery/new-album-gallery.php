@@ -6,7 +6,7 @@ if (! defined('ABSPATH')) exit; // Exit if accessed directly
 Plugin Name: Album Gallery
 Plugin URI: http://awplife.com/
 Description: A responsive album gallery to display your photos and videos in beautiful grid layouts.
-Version: 2.0.2
+Version: 2.1.1
 Author: A WP Life
 Author URI: http://awplife.com/
 Text Domain: new-album-gallery
@@ -41,7 +41,7 @@ if (! class_exists('Awl_Album_Gallery')) {
 		{
 
 			//Plugin Version
-			define('AG_PLUGIN_VER', '2.0.2');
+			define('AG_PLUGIN_VER', '2.1.1');
 
 			//Plugin Text Domain
 			define('AGP_TXTDM', 'new-album-gallery');
@@ -118,6 +118,11 @@ if (! class_exists('Awl_Album_Gallery')) {
 
 		public function ag_admin_scripts_enqueues($hook)
 		{
+			// Check capabilities to prevent low-privileged users from loading resources or leaking nonces
+			if (!current_user_can('edit_posts') && !current_user_can('edit_pages') && !current_user_can('manage_options')) {
+				return;
+			}
+
 			global $post_type;
 			
 			// Only load on Album Gallery post editing screen or Album Gallery menu pages
@@ -125,8 +130,7 @@ if (! class_exists('Awl_Album_Gallery')) {
 							 (strpos($hook, 'album_gallery') !== false) || 
 							 (strpos($hook, 'ag-column') !== false) || 
 							 (strpos($hook, 'ag-our-plugins') !== false) || 
-							 (strpos($hook, 'ag-our-themes') !== false) || 
-							 (isset($_GET['page']) && ($_GET['page'] == 'ag-column-page' || $_GET['page'] == 'ag-our-plugins' || $_GET['page'] == 'ag-our-themes' || $_GET['page'] == 'ag-doc-page'));
+							 (strpos($hook, 'ag-our-themes') !== false);
 			
 			if ($is_album_page) {
 				wp_enqueue_media();
@@ -264,17 +268,17 @@ if (! class_exists('Awl_Album_Gallery')) {
 				'supports'            => array('title'),
 				'taxonomies'          => array(),
 				'hierarchical'        => false,
-				'public'              => true,
+				'public'              => false,
 				'show_ui'             => true,
 				'show_in_menu'        => true,
 				'menu_position'       => 65,
 				'menu_icon'           => 'dashicons-images-alt',
-				'show_in_admin_bar'   => true,
-				'show_in_nav_menus'   => true,
+				'show_in_admin_bar'   => false,
+				'show_in_nav_menus'   => false,
 				'can_export'          => true,
-				'has_archive'         => true,
-				'exclude_from_search' => false,
-				'publicly_queryable'  => true,
+				'has_archive'         => false,
+				'exclude_from_search' => true,
+				'publicly_queryable'  => false,
 				'capability_type'     => 'page',
 			);
 
@@ -287,8 +291,8 @@ if (! class_exists('Awl_Album_Gallery')) {
 		public function _ag_admin_add_meta_box()
 		{
 			// Syntax: add_meta_box( $id, $title, $callback, $screen, $context, $priority, $callback_args );
-			add_meta_box('1', __('Copy Album Gallery Shortcode', 'new-album-gallery'), array(&$this, '_ag_shortcode_left_metabox'), 'album_gallery', 'side', 'default');
-			add_meta_box('', __('Add Images', 'new-album-gallery'), array(&$this, 'ag_upload_multiple_images'), 'album_gallery', 'normal', 'default');
+			add_meta_box('1', __('Copy Album Gallery Shortcode', 'new-album-gallery'), array(&$this, '_ag_shortcode_left_metabox'), 'album_gallery', 'side', 'high');
+			add_meta_box('', __('Add Images', 'new-album-gallery'), array(&$this, 'ag_upload_multiple_images'), 'album_gallery', 'normal', 'high');
 		}
 
 
@@ -357,14 +361,15 @@ if (! class_exists('Awl_Album_Gallery')) {
 		}
 
 
-		public function _ag_ajax_callback_function($id, $type = 'i', $title = '', $link = '')
+		public function _ag_ajax_callback_function($id, $type = 'i', $title = '', $link = '', $poster = '')
 		{
 			$thumbnail = wp_get_attachment_image_src($id, 'medium', true);
 			$display_title = !empty($title) ? $title : get_the_title($id);
+			$current_thumbnail = !empty($poster) ? $poster : $thumbnail[0];
 		?>
 			<li class="ag-image-slide-card" id="ag-slide-<?php echo esc_attr($id); ?>">
 				<div class="ag-slide-thumbnail">
-					<img src="<?php echo esc_url($thumbnail[0]); ?>" alt="<?php echo esc_attr($display_title); ?>">
+					<img src="<?php echo esc_url($current_thumbnail); ?>" alt="<?php echo esc_attr($display_title); ?>" class="ag-slide-thumb-img" data-original-src="<?php echo esc_url($thumbnail[0]); ?>">
 					<div class="ag-slide-badge">
 						<span class="dashicons <?php echo ($type === 'v') ? 'dashicons-video-alt3' : 'dashicons-format-image'; ?>"></span>
 					</div>
@@ -377,6 +382,7 @@ if (! class_exists('Awl_Album_Gallery')) {
 
 				<div class="ag-slide-content">
 					<input type="hidden" name="image-slide-ids[]" value="<?php echo esc_attr($id); ?>" />
+					<input type="hidden" name="image-slide-poster[]" value="<?php echo esc_url($poster); ?>" class="ag-slide-poster-input" />
 					
 					<div class="ag-slide-field">
 						<input type="text" name="image-slide-title[]" placeholder="<?php esc_attr_e('Slide Title', 'new-album-gallery'); ?>" value="<?php echo esc_attr($display_title); ?>">
@@ -385,12 +391,26 @@ if (! class_exists('Awl_Album_Gallery')) {
 					<div class="ag-slide-type-row">
 						<select name="image-slide-type[]" class="ag-slide-type-select">
 							<option value="i" <?php selected($type, 'i'); ?>><?php esc_html_e('Image', 'new-album-gallery'); ?></option>
-							<option value="v" <?php selected($type, 'v'); ?>><?php esc_html_e('Video', 'new-album-gallery'); ?></option>
+							<option value="v" <?php selected($type, 'v'); ?>><?php esc_html_e('Youtube video', 'new-album-gallery'); ?></option>
 						</select>
 					</div>
 
-					<div class="ag-slide-field ag-video-link-field">
-						<input type="text" name="image-slide-link[]" placeholder="<?php esc_attr_e('Video URL or Redirect Link', 'new-album-gallery'); ?>" value="<?php echo esc_url($link); ?>">
+					<?php $video_field_style = ($type === 'v') ? 'display: block;' : 'display: none;'; ?>
+					<div class="ag-slide-field ag-video-link-field" style="<?php echo esc_attr($video_field_style); ?>">
+						<input type="text" name="image-slide-link[]" placeholder="<?php echo ($type === 'v') ? esc_attr__('Youtube video URL', 'new-album-gallery') : esc_attr__('Video URL or Redirect Link', 'new-album-gallery'); ?>" value="<?php echo esc_url($link); ?>">
+					</div>
+
+					<?php $fetch_wrapper_style = ($type === 'v') ? 'display: flex;' : 'display: none;'; ?>
+					<div class="ag-poster-fetch-wrapper" style="<?php echo esc_attr($fetch_wrapper_style); ?> margin-top: 10px; flex-direction: column; gap: 8px; width: 100%;">
+						<button type="button" class="button ag-btn-fetch-poster ag-btn-fetch-poster-modern" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 6px;">
+							<span class="dashicons dashicons-cloud-download" style="font-size: 14px; width: 14px; height: 14px; display: inline-flex; align-items: center;"></span>
+							<?php esc_html_e('Fetch Poster', 'new-album-gallery'); ?>
+						</button>
+						<?php $revert_style = !empty($poster) ? 'display: flex;' : 'display: none;'; ?>
+						<button type="button" class="button ag-btn-revert-poster ag-btn-revert-poster-modern" style="<?php echo esc_attr($revert_style); ?> width: 100%; align-items: center; justify-content: center; gap: 6px;" title="<?php esc_attr_e('Revert to original thumbnail', 'new-album-gallery'); ?>">
+							<span class="dashicons dashicons-undo" style="font-size: 14px; width: 14px; height: 14px; display: inline-flex; align-items: center;"></span>
+							<?php esc_html_e('Revert Thumbnail', 'new-album-gallery'); ?>
+						</button>
 					</div>
 				</div>
 
@@ -410,9 +430,17 @@ if (! class_exists('Awl_Album_Gallery')) {
 			// Check nonce
 			check_ajax_referer('album_gallery_js_nonce', 'security');
 
+			// Check capability
+			if (!current_user_can('edit_posts') && !current_user_can('edit_pages')) {
+				wp_send_json_error('Unauthorized');
+			}
+
 			if (isset($_POST['slideId'])) {
 				$slide_id = absint(wp_unslash($_POST['slideId']));
-				echo $this->_ag_ajax_callback_function($slide_id); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output is escaped in _ag_ajax_callback_function
+				// Verify target is an attachment to prevent arbitrary metadata disclosure
+				if (get_post_type($slide_id) === 'attachment') {
+					echo $this->_ag_ajax_callback_function($slide_id); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output is escaped in _ag_ajax_callback_function
+				}
 			}
 			die;
 		}
@@ -506,6 +534,7 @@ if (! class_exists('Awl_Album_Gallery')) {
 					'image-slide-title'    => isset($_POST['image-slide-title']) ? array_map('sanitize_text_field', wp_unslash((array) $_POST['image-slide-title'])) : array(),
 					'image-slide-type'     => isset($_POST['image-slide-type']) ? array_map('sanitize_text_field', wp_unslash((array) $_POST['image-slide-type'])) : array(),
 					'image-slide-link'     => isset($_POST['image-slide-link']) ? array_map('esc_url_raw', wp_unslash((array) $_POST['image-slide-link'])) : array(),
+					'image-slide-poster'   => isset($_POST['image-slide-poster']) ? array_map('esc_url_raw', wp_unslash((array) $_POST['image-slide-poster'])) : array(),
 				);
 
 				// Save primarily
@@ -637,5 +666,9 @@ if (! class_exists('Awl_Album_Gallery')) {
 require_once('include/shortcode.php');
 //output code fuction
 require_once plugin_dir_path(__FILE__) . 'include/output-code.php';
+// Gutenberg block integration
+require_once plugin_dir_path(__FILE__) . 'include/gutenberg-block.php';
+// Elementor widget integration
+require_once plugin_dir_path(__FILE__) . 'include/elementor-widget.php';
 
 ?>

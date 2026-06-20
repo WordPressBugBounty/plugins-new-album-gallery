@@ -5,6 +5,11 @@ if (! defined('ABSPATH')) exit; // Exit if accessed directly
 <a href="javascript:" id="return-to-top"><i class="dashicons dashicons-arrow-up-alt2"></i></a>
 
 <div class="awl-ag-settings-wrapper">
+	<!-- Settings Page Loader -->
+	<div class="ag-settings-loader">
+		<div class="ag-settings-loader-spinner"></div>
+	</div>
+	<div class="ag-settings-main-content" style="display: none;">
     <div class="awl-ag-tabs-nav">
         <div class="awl-ag-tab-nav-item active" data-tab="0">
             <i class="dashicons dashicons-format-image"></i>
@@ -69,11 +74,12 @@ if (! defined('ABSPATH')) exit; // Exit if accessed directly
                             $type = isset($settings['image-slide-type'][$count]) ? $settings['image-slide-type'][$count] : 'i';
                             $title = isset($settings['image-slide-title'][$count]) ? $settings['image-slide-title'][$count] : '';
                             $link = isset($settings['image-slide-link'][$count]) ? $settings['image-slide-link'][$count] : '';
+                            $poster = isset($settings['image-slide-poster'][$count]) ? $settings['image-slide-poster'][$count] : '';
                             
                             // Get main class instance to call the callback
                             // In this context, we might need a reference to the class or just call it if it's available global/passed
                             // Since this file is required inside a class method, $this SHOULD refer to the class instance.
-                            $this->_ag_ajax_callback_function($id, $type, $title, $link);
+                            $this->_ag_ajax_callback_function($id, $type, $title, $link, $poster);
                             $count++;
                         }
                     }
@@ -333,7 +339,7 @@ if (! defined('ABSPATH')) exit; // Exit if accessed directly
         <div class="awl-ag-tab-content" id="tab-4">
             <?php require_once('upgrade-pro.php'); ?>
         </div>
-    </div>
+	</div> <!-- .ag-settings-main-content -->
 </div>
 <?php
 wp_nonce_field('ag_save_settings', 'ag_save_nonce');

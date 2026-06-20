@@ -5,7 +5,7 @@ Tags: album gallery, photo gallery, image gallery, video gallery, lightbox
 Requires at least: 4.0
 Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 2.0.2
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -105,6 +105,21 @@ There is no limit. You can create as many album gallery grids as you want.
 The Pro version adds category filters, custom image sizes, deeper lightbox features, and priority support.
 
 == Changelog ==
+
+= 2.1.1 =
+* 2026-06-20
+* Security: Gated the `ajax_album_gallery` AJAX handler with explicit capability checks (`edit_posts`/`edit_pages`) and added strict attachment post-type validation to prevent unauthorized metadata disclosure.
+* Security: Tightened the nonce-leaking script enqueue gating in `ag_admin_scripts_enqueues` by verifying capabilities and removing raw `$_GET['page']` access.
+* Fix: Addressed output escaping PHPCS warnings by refactoring shortcode output rendering logic and adding escaping ignore statements for safe widgets.
+
+= 2.1.0 =
+* 2026-06-20
+* New: Added YouTube video support for video slides.
+* New: Added dynamic YouTube poster image fetching and reverting functionality.
+* New: Added Gutenberg block editor integration for inserting specific album galleries visually.
+* New: Added Elementor widget integration for inserting specific album galleries visually.
+* UI/UX: Added backend settings page loading spinner overlay during tab switching.
+* Docs: Completely modernized and updated the documentation page and pro comparison charts.
 
 = 2.0.2 =
 * 2026-05-08
