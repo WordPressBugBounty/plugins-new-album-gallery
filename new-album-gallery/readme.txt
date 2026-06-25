@@ -5,15 +5,15 @@ Tags: album gallery, photo gallery, image gallery, video gallery, lightbox
 Requires at least: 4.0
 Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-An easy-to-use album gallery for Photo & Video display. Includes clean grid layouts, local lightboxes, and custom hover effects.
+An easy-to-use album gallery for Photo & Video display. Works seamlessly with Gutenberg Blocks and Elementor Page Builder.
 
-== Description: Best Album Gallery for Photo & Video ==
+== Album Gallery for Photo & Video ==
 
-Need a clean way to show your media? Our album gallery for Photo & Video makes it simple. 
+Need a clean way to show your media? Our album gallery for Photo & Video makes it simple. It is fully compatible with Gutenberg Blocks and Elementor Page Builder, allowing you to insert and design your collections visually. 
 
 You can group your images into organized collections. Visitors can browse your grid easily. When they click a cover, a beautiful lightbox opens up. It is fast, fully responsive, and works on all devices. 
 
@@ -21,7 +21,9 @@ You can group your images into organized collections. Visitors can browse your g
 **Pro Version Demo:** **[Album Gallery Premium](https://awplife.com/demo/album-gallery-premium/)**
 **Where to Buy:** **[Buy Album Gallery Premium](https://awplife.com/account/signup/album-gallery-premium/)**
 
-https://www.youtube.com/watch?v=rUB-1FkBW48
+= Video Tutoreal =
+
+https://www.youtube.com/watch?v=g6HC2r4QAOI
 
 = Why Choose Our Album Gallery? =
 * **Organized Grid:** Group your related pictures together. Keep your website neat and professional.
@@ -41,6 +43,7 @@ https://www.youtube.com/watch?v=rUB-1FkBW48
 * **Animations:** Subtle entrance effects like pulse or fade on page load.
 * **Hover Effects:** Creative stack and overlay designs for cover images.
 * **Perceived Speed:** Skeleton loaders keep visitors engaged during load.
+* **Page Builders:** Built-in Gutenberg Block and Elementor Page Builder widget for easy visual layouts.
 * **Easy Setup:** Copy and paste shortcodes into any page or post.
 
 = Pro Features for Advanced Layouts =
@@ -50,6 +53,13 @@ https://www.youtube.com/watch?v=rUB-1FkBW48
 * **Deep Linking:** Give each image a unique direct link.
 * **Categories:** Organize your media into separate filterable groups.
 * **Category Shortcodes:** Display only specific album categories on any page with a single custom shortcode.
+
+= More Pro Version Demos =
+
+* [Image Albums](https://awplife.com/demo/album-gallery-premium/)
+* [Video Albums](https://awplife.com/demo/album-gallery-premium/video-album-gallery/)
+* [Stack Effects](https://awplife.com/demo/album-gallery-premium/hover-stacks-effects/)
+* [Load More](https://awplife.com/demo/album-gallery-premium/load-more/)
 
 = How It Works =
 1. Create a new collection from the admin panel.
@@ -66,17 +76,6 @@ https://www.youtube.com/watch?v=rUB-1FkBW48
 4. Click **Add New** to build your first collection.
 5. Paste the shortcode on your site.
 
-== Screenshots ==
-1. Video Gallery Album
-2. Animation Effect
-3. Stack effect
-4. Lightbox
-5. Lightbox Image Preview
-6. Overlay Effect
-7. Setting Page Images
-8. Gallery Setting Page
-9. Icon
-
 == Installation ==
 
 1. Go to Plugins > Add New in your WordPress admin
@@ -86,6 +85,17 @@ https://www.youtube.com/watch?v=rUB-1FkBW48
 5. Click Add New to create your first album
 6. Upload images and configure settings
 7. Copy the shortcode and add it to any page or post
+
+== Screenshots ==
+1. Add Image Section
+2. Layout Tab
+3. Lightbox Controls Tab
+4. Visual Effects Tab
+5. Global Sttings Page
+6. Docs Page
+7. Albums Frontend
+8. Photo In Lightbox
+9. Youtube Video In Lightbox
 
 == Frequently Asked Questions ==
 
@@ -105,6 +115,11 @@ There is no limit. You can create as many album gallery grids as you want.
 The Pro version adds category filters, custom image sizes, deeper lightbox features, and priority support.
 
 == Changelog ==
+
+= 2.1.2 =
+* 2026-06-25
+* New: Added Right-Click Protection integration block in Layout Settings tab.
+* Docs: Documented Right-Click Protection option in Docs page and readme.txt.
 
 = 2.1.1 =
 * 2026-06-20
@@ -165,41 +180,6 @@ The Pro version adds category filters, custom image sizes, deeper lightbox featu
 * New: Completely redesigned documentation page with 12-section tutorial.
 * New: Redesigned Upgrade to Pro tab with feature cards and comparison table.
 * Tested with WordPress 6.9.
-
-= 1.6.9 =
-* Testing plugin for WordPress 6.9
-
-= 1.6.8 =
-* Testing plugin for WordPress 6.8.3
-
-= 1.6.7 =
-* Text domain error fixed.
-
-= 1.6.6 =
-* Testing plugin for WordPress 6.8.1
-
-= 1.6.5 =
-* Bug Fix: Fixed.
-
-= 1.6.4 =
-* Removed Update galleries Notice 
-* Fixed vernal abily by add Json encode
-
-= 1.6.3 =
-* Update galleries Notice added 
-* Testing plugin for WordPress 6.7.2
-
-= 1.6.2 =
-* Bug Fix: Fixed.
-* Testing plugin for WordPress 6.7.1
-* New plugin icons and banner updated.
-
-= 1.6.1 =
-* Bug Fix: Fixed.
-* Testing plugin for WordPress 6.6.2
-
-= 1.6.0 =
-* Testing plugin for WordPress 6.6.2
 
 == Upgrade Notice ==
 This is an initial release. Start with version 2.0.2 and share your feedback <a href="https://wordpress.org/support/view/plugin-reviews/new-album-gallery//">here</a>.

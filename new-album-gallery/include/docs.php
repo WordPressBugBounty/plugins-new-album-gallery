@@ -487,37 +487,77 @@ if (! defined('ABSPATH')) {
 		color: var(--ag-primary);
 	}
 
-	/* Call to Action & Video Buttons */
-	.nag-docs-cta {
-		background: var(--ag-docs-card);
-		border: 1px solid var(--ag-border);
-		border-radius: var(--ag-radius);
-		padding: 40px;
+	/* Video Tutorial Buttons */
+
+	.nag-sidebar-actions {
+		margin-top: 25px;
 		display: flex;
-		gap: 20px;
-		justify-content: center;
-		align-items: center;
-		box-shadow: var(--ag-shadow-sm);
-		margin-top: 30px;
+		flex-direction: column;
+		gap: 10px;
+		padding-top: 20px;
+		border-top: 1px solid var(--ag-border);
 	}
 
-	.nag-docs-cta .button-hero {
+	.nag-sidebar-actions .button {
 		display: inline-flex !important;
 		align-items: center !important;
 		justify-content: center !important;
-		gap: 8px;
-		height: 46px !important;
-		line-height: 44px !important;
+		gap: 8px !important;
+		height: 42px !important;
+		line-height: 40px !important;
+		border-radius: 8px !important;
+		font-weight: 700 !important;
+		font-size: 13px !important;
+		width: 100% !important;
+		transition: var(--ag-transition) !important;
+		text-decoration: none !important;
+		box-sizing: border-box !important;
 	}
 
-	.nag-docs-cta .button-hero .dashicons {
+	.nag-sidebar-actions .button-primary {
+		background: linear-gradient(135deg, var(--ag-primary) 0%, var(--ag-secondary) 100%) !important;
+		border: none !important;
+		color: #ffffff !important;
+		box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2) !important;
+	}
+
+	.nag-sidebar-actions .button-primary:hover {
+		transform: translateY(-1px) !important;
+		box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3) !important;
+	}
+
+	.nag-sidebar-actions .button-secondary {
+		background: #ffffff !important;
+		border: 1px solid var(--ag-border) !important;
+		color: var(--ag-docs-text) !important;
+	}
+
+	.nag-sidebar-actions .button-secondary:hover {
+		border-color: var(--ag-primary) !important;
+		color: var(--ag-primary) !important;
+		background: #f8fafc !important;
+	}
+
+	.nag-sidebar-actions .button-review {
+		background: #0f172a !important;
+		color: #38bdf8 !important;
+		border: 1px solid #334155 !important;
+	}
+
+	.nag-sidebar-actions .button-review:hover {
+		background: #1e293b !important;
+		color: #38bdf8 !important;
+		border-color: #38bdf8 !important;
+	}
+
+	.nag-sidebar-actions .button .dashicons {
+		font-size: 16px !important;
+		width: 16px !important;
+		height: 16px !important;
+		display: inline-flex !important;
+		align-items: center !important;
+		justify-content: center !important;
 		margin: 0 !important;
-		font-size: 18px;
-		width: 18px;
-		height: 18px;
-		display: inline-flex !important;
-		align-items: center !important;
-		justify-content: center !important;
 	}
 
 	.nag-video-btn {
@@ -583,7 +623,7 @@ if (! defined('ABSPATH')) {
 	<div class="nag-video-section">
 		<h2><span class="dashicons dashicons-video-alt3" style="color:#ff0000; font-size:26px; width:26px; height:26px;"></span> <?php esc_html_e('Video Tutorial', 'new-album-gallery'); ?></h2>
 		<p><?php esc_html_e('Watch our step-by-step video tutorial to learn how to set up and use Album Gallery on your WordPress site.', 'new-album-gallery'); ?></p>
-		<a href="https://www.youtube.com/watch?v=rUB-1FkBW48" target="_blank" rel="noopener noreferrer" class="nag-video-btn">
+		<a href="https://www.youtube.com/watch?v=g6HC2r4QAOI" target="_blank" rel="noopener noreferrer" class="nag-video-btn">
 			<span class="dashicons dashicons-video-alt3"></span>
 			<?php esc_html_e('Watch Video Tutorial on YouTube', 'new-album-gallery'); ?>
 		</a>
@@ -648,6 +688,21 @@ if (! defined('ABSPATH')) {
 					</a>
 				</li>
 			</ul>
+			<!-- Sidebar Action Buttons -->
+			<div class="nag-sidebar-actions">
+				<a class="button button-primary" href="https://awplife.com/account/signup/album-gallery-premium/" target="_blank" rel="noopener noreferrer">
+					<span class="dashicons dashicons-cart"></span>
+					<?php esc_html_e('Buy Pro Version', 'new-album-gallery'); ?>
+				</a>
+				<a class="button button-secondary" href="https://awplife.com/demo/album-gallery-premium/" target="_blank" rel="noopener noreferrer">
+					<span class="dashicons dashicons-visibility"></span>
+					<?php esc_html_e('Live Demo', 'new-album-gallery'); ?>
+				</a>
+				<a class="button button-review" href="https://wordpress.org/support/plugin/new-album-gallery/reviews/" target="_blank" rel="noopener noreferrer">
+					<span class="dashicons dashicons-star-filled"></span>
+					<?php esc_html_e('Leave a Review', 'new-album-gallery'); ?>
+				</a>
+			</div>
 		</aside>
 
 		<!-- Main Content Sections -->
@@ -704,6 +759,12 @@ if (! defined('ABSPATH')) {
 				<ul>
 					<li><strong><?php esc_html_e('Uniform:', 'new-album-gallery'); ?></strong> <?php esc_html_e('Uses the global settings defined in the Album Gallery > Column Settings menu.', 'new-album-gallery'); ?></li>
 					<li><strong><?php esc_html_e('Individual:', 'new-album-gallery'); ?></strong> <?php esc_html_e('Allows you to set specific column counts for this gallery across Desktops, Tablets, and Phones.', 'new-album-gallery'); ?></li>
+				</ul>
+
+				<h3><?php esc_html_e('Right Click Protection', 'new-album-gallery'); ?></h3>
+				<p><?php esc_html_e('Enforce security against image downloading by utilizing our recommended integration:', 'new-album-gallery'); ?></p>
+				<ul>
+					<li><strong><?php esc_html_e('Right Click Protection Card:', 'new-album-gallery'); ?></strong> <?php esc_html_e('Uses real-time system file checks to look for the "Right Click Disable OR Ban" plugin. Click to install, activate, or directly configure right-click rules to restrict users from downloading your graphics.', 'new-album-gallery'); ?></li>
 				</ul>
 			</div>
 
@@ -798,22 +859,6 @@ if (! defined('ABSPATH')) {
 
 				<h3><?php esc_html_e('Q: Is it mobile friendly?', 'new-album-gallery'); ?></h3>
 				<p><?php esc_html_e('Yes, the gallery uses a responsive grid system that adapts to all screen sizes.', 'new-album-gallery'); ?></p>
-			</div>
-
-			<!-- Call to Action -->
-			<div class="nag-docs-cta">
-				<a class="button button-primary button-hero" href="https://awplife.com/demo/album-gallery-premium/" target="_blank" rel="noopener noreferrer" style="border-radius:10px; font-weight:700;">
-					<span class="dashicons dashicons-visibility" style="vertical-align: middle; margin-right: 5px;"></span>
-					<?php esc_html_e('Live Demo', 'new-album-gallery'); ?>
-				</a>
-				<a class="button button-secondary button-hero" href="https://awplife.com/account/signup/album-gallery-premium/" target="_blank" rel="noopener noreferrer" style="border-radius:10px; font-weight:700;">
-					<span class="dashicons dashicons-cart" style="vertical-align: middle; margin-right: 5px;"></span>
-					<?php esc_html_e('Buy Pro Version', 'new-album-gallery'); ?>
-				</a>
-				<a class="button button-hero" href="https://wordpress.org/support/plugin/new-album-gallery/reviews/" target="_blank" rel="noopener noreferrer" style="border-radius:10px; font-weight:700;">
-					<span class="dashicons dashicons-star-filled" style="vertical-align: middle; margin-right: 5px;"></span>
-					<?php esc_html_e('Leave a Review', 'new-album-gallery'); ?>
-				</a>
 			</div>
 
 		</main>

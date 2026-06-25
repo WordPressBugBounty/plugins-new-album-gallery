@@ -1531,3 +1531,55 @@
     border-radius: 50% !important;
     animation: ag-spin 0.8s linear infinite !important;
 }
+
+/* Right Click Protection Integration Styles */
+.ag-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    height: 40px;
+    border-radius: var(--ag-radius-sm, 8px);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--ag-transition, all 0.3s ease);
+    border: 1px solid transparent;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.ag-btn span.dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ag-btn-primary {
+    background: var(--ag-primary, #4f46e5) !important;
+    color: #fff !important;
+}
+
+.ag-btn-primary:hover {
+    background: var(--ag-primary-hover, #4338ca) !important;
+    transform: translateY(-1px);
+    box-shadow: var(--ag-shadow, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+}
+
+.ag-btn-secondary {
+    background: #ffffff !important;
+    border-color: var(--ag-border, #e2e8f0) !important;
+    color: var(--ag-text, #1e293b) !important;
+    box-shadow: var(--ag-shadow-sm, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.ag-btn-secondary:hover {
+    border-color: var(--ag-primary, #4f46e5) !important;
+    color: var(--ag-primary, #4f46e5) !important;
+    background: #f8fafc !important;
+}
+
