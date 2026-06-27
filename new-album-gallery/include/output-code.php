@@ -68,7 +68,7 @@ function agp_render_album_gallery($post_id)
 		$count = 0;
 		foreach ($album_gallery_settings['image-slide-ids'] as $attachment_id) {
 			$full = wp_get_attachment_image_src($attachment_id, 'full', true);
-			$thumb = wp_get_attachment_image_src($attachment_id, 'thumbnail', true);
+			$thumb = wp_get_attachment_image_src($attachment_id, 'medium', true);
 			$details = get_post($attachment_id);
 			$stype = isset($album_gallery_settings['image-slide-type'][$count]) ? $album_gallery_settings['image-slide-type'][$count] : 'i';
 			$slink = isset($album_gallery_settings['image-slide-link'][$count]) ? $album_gallery_settings['image-slide-link'][$count] : '';

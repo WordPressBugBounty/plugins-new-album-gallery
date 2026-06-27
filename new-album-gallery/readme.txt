@@ -5,7 +5,7 @@ Tags: album gallery, photo gallery, image gallery, video gallery, lightbox
 Requires at least: 4.0
 Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 2.1.2
+Stable tag: 2.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -115,6 +115,11 @@ There is no limit. You can create as many album gallery grids as you want.
 The Pro version adds category filters, custom image sizes, deeper lightbox features, and priority support.
 
 == Changelog ==
+
+= 2.1.3 =
+* 2026-06-27
+* Fix: Updated lightbox thumbnails to load medium size images for enhanced clarity and resolution.
+* Layout: Increased grid spacing and padding between album containers for improved visual separation.
 
 = 2.1.2 =
 * 2026-06-25
