@@ -6,7 +6,7 @@ if (! defined('ABSPATH')) exit; // Exit if accessed directly
 Plugin Name: Album Gallery
 Plugin URI: http://awplife.com/
 Description: A responsive album gallery to display your photos and videos in beautiful grid layouts.
-Version: 2.1.3
+Version: 2.1.4
 Author: A WP Life
 Author URI: http://awplife.com/
 Text Domain: new-album-gallery
@@ -15,13 +15,17 @@ License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
-// If Premium version is active or loaded, let Premium version handle everything and exit early.
+// If Premium version is active, loaded, or being activated, let Premium version handle everything and exit early.
 $active_plugins = (array) get_option('active_plugins', array());
 $active_sitewide_plugins = (array) get_site_option('active_sitewide_plugins', array());
+$request_plugin = isset($_REQUEST['plugin']) ? sanitize_text_field(wp_unslash($_REQUEST['plugin'])) : '';
+$is_activating_premium = (strpos($request_plugin, 'album-gallery-premium') !== false);
+
 if (
 	defined('AG_PREMIUM') ||
 	in_array('album-gallery-premium/album-gallery-premium.php', $active_plugins) ||
-	array_key_exists('album-gallery-premium/album-gallery-premium.php', $active_sitewide_plugins)
+	array_key_exists('album-gallery-premium/album-gallery-premium.php', $active_sitewide_plugins) ||
+	$is_activating_premium
 ) {
 	return;
 }
@@ -41,7 +45,7 @@ if (! class_exists('Awl_Album_Gallery')) {
 		{
 
 			//Plugin Version
-			define('AG_PLUGIN_VER', '2.1.3');
+			define('AG_PLUGIN_VER', '2.1.4');
 
 			//Plugin Text Domain
 			define('AGP_TXTDM', 'new-album-gallery');
@@ -592,31 +596,33 @@ if (! class_exists('Awl_Album_Gallery')) {
 	} // end of class
 
 	// register sf scripts
-	function agp_register_scripts()
-	{
+	if (! function_exists('agp_register_scripts')) {
+		function agp_register_scripts()
+		{
 
-		wp_enqueue_script('jquery');
-		//js
+			wp_enqueue_script('jquery');
+			//js
 
-		// Unified Lightbox Initializer
-		wp_register_script('nag-lightbox-init', AG_PLUGIN_URL . 'assets/js/nag-lightbox-init.js', array('jquery', 'nag-lightgallery-js'), AG_PLUGIN_VER, true);
+			// Unified Lightbox Initializer
+			wp_register_script('nag-lightbox-init', AG_PLUGIN_URL . 'assets/js/nag-lightbox-init.js', array('jquery', 'nag-lightgallery-js'), AG_PLUGIN_VER, true);
 
-		// LightGallery v1.10.0 (Fully GPL Compatible)
-		wp_register_style('nag-lightgallery-css', AG_PLUGIN_URL . 'assets/vendor/lightgallery/css/lightgallery.min.css', array(), '1.10.0');
-		wp_register_script('nag-lightgallery-js', AG_PLUGIN_URL . 'assets/vendor/lightgallery/js/lightgallery.min.js', array('jquery'), '1.10.0', true);
-		wp_register_script('nag-lg-thumbnail', AG_PLUGIN_URL . 'assets/vendor/lightgallery/js/lg-thumbnail.min.js', array('nag-lightgallery-js'), '1.10.0', true);
-		wp_register_script('nag-lg-autoplay', AG_PLUGIN_URL . 'assets/vendor/lightgallery/js/lg-autoplay.min.js', array('nag-lightgallery-js'), '1.10.0', true);
-		wp_register_script('nag-lg-video', AG_PLUGIN_URL . 'assets/vendor/lightgallery/js/lg-video.min.js', array('nag-lightgallery-js'), '1.10.0', true);
+			// LightGallery v1.10.0 (Fully GPL Compatible)
+			wp_register_style('nag-lightgallery-css', AG_PLUGIN_URL . 'assets/vendor/lightgallery/css/lightgallery.min.css', array(), '1.10.0');
+			wp_register_script('nag-lightgallery-js', AG_PLUGIN_URL . 'assets/vendor/lightgallery/js/lightgallery.min.js', array('jquery'), '1.10.0', true);
+			wp_register_script('nag-lg-thumbnail', AG_PLUGIN_URL . 'assets/vendor/lightgallery/js/lg-thumbnail.min.js', array('nag-lightgallery-js'), '1.10.0', true);
+			wp_register_script('nag-lg-autoplay', AG_PLUGIN_URL . 'assets/vendor/lightgallery/js/lg-autoplay.min.js', array('nag-lightgallery-js'), '1.10.0', true);
+			wp_register_script('nag-lg-video', AG_PLUGIN_URL . 'assets/vendor/lightgallery/js/lg-video.min.js', array('nag-lightgallery-js'), '1.10.0', true);
 
 
-		// css
-		wp_register_style('awl-animate-css', AG_PLUGIN_URL . 'assets/css/awl-animate.css', array(), AG_PLUGIN_VER);
-		wp_register_style('awl-hover-stack-style-css', AG_PLUGIN_URL . 'assets/css/awl-hover-stack-style.css', array(), AG_PLUGIN_VER);
-		wp_register_style('awl-hover-overlay-effects-css', AG_PLUGIN_URL . 'assets/css/awl-hover-overlay-effects.css', array(), AG_PLUGIN_VER);
-		wp_register_style('awl-hover-overlay-effects-style-css', AG_PLUGIN_URL . 'assets/css/awl-hover-overlay-effects-style.css', array(), AG_PLUGIN_VER);
-		
+			// css
+			wp_register_style('awl-animate-css', AG_PLUGIN_URL . 'assets/css/awl-animate.css', array(), AG_PLUGIN_VER);
+			wp_register_style('awl-hover-stack-style-css', AG_PLUGIN_URL . 'assets/css/awl-hover-stack-style.css', array(), AG_PLUGIN_VER);
+			wp_register_style('awl-hover-overlay-effects-css', AG_PLUGIN_URL . 'assets/css/awl-hover-overlay-effects.css', array(), AG_PLUGIN_VER);
+			wp_register_style('awl-hover-overlay-effects-style-css', AG_PLUGIN_URL . 'assets/css/awl-hover-overlay-effects-style.css', array(), AG_PLUGIN_VER);
+			
+		}
+		add_action('wp_enqueue_scripts', 'agp_register_scripts');
 	}
-	add_action('wp_enqueue_scripts', 'agp_register_scripts');
 
 	// Enqueue all front-end assets ONCE per request.
 	if (! function_exists('agp_enqueue_frontend_assets_once')) {
