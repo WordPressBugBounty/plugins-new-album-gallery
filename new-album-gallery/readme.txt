@@ -5,7 +5,7 @@ Tags: album gallery, photo gallery, image gallery, video gallery, lightbox
 Requires at least: 4.0
 Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 2.1.4
+Stable tag: 2.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -115,6 +115,14 @@ There is no limit. You can create as many album gallery grids as you want.
 The Pro version adds category filters, custom image sizes, deeper lightbox features, and priority support.
 
 == Changelog ==
+
+= 2.1.5 =
+* 2026-06-29
+* Fix: Resolved Elementor widget AJAX re-rendering display issues by force-injecting link tags in the preview mode and added a self-executing script to initialize the skeleton loader state immediately.
+* Fix: Upgraded Gutenberg block implementation to apiVersion 3 with ServerSideRender to support dynamic live editor previews.
+* Layout: Standardized CSS layout grid and copied custom aspect ratio/shape properties from the premium plugin version.
+* Fix: Transferred stack hover effect borders from image to wrapper div to prevent clipping in skeleton loading state.
+* New: Implemented high-performance batch image uploading with a premium animated gradient loading spinner.
 
 = 2.1.4 =
 * 2026-06-27

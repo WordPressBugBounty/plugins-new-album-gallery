@@ -41,10 +41,17 @@ jQuery(function(jQuery) {
                     });
 
                     file_frame.on('select', function() {
-                        var images = file_frame.state().get('selection').toJSON();
-                        for (var i = 0; i < images.length; i++) {
-                            awl_album_gallery.get_thumbnail(images[i]['id']);
+                        var images = file_frame.state().get('selection').toJSON(),
+                            length = images.length;
+                        
+                        if (length === 0) return;
+                        
+                        var imageIds = [];
+                        for (var i = 0; i < length; i++) {
+                            imageIds.push(images[i]['id']);
                         }
+                        
+                        awl_album_gallery.get_thumbnails_batch(imageIds);
                     });
                 }
             };
@@ -163,6 +170,73 @@ jQuery(function(jQuery) {
                 $btn.hide();
             });
            
+        },
+        showLoading: function(count) {
+            if (jQuery('#ag-loading-indicator').length) return;
+
+            var loadingHtml = '<div id="ag-loading-indicator" style="' +
+                'display: flex;' +
+                'align-items: center;' +
+                'justify-content: center;' +
+                'gap: 12px;' +
+                'padding: 16px 24px;' +
+                'background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);' +
+                'color: #ffffff;' +
+                'border-radius: 12px;' +
+                'margin: 20px 0;' +
+                'box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);' +
+                'font-family: -apple-system, BlinkMacSystemFont, \\"Segoe UI\\", Roboto, sans-serif;' +
+                'font-weight: 600;' +
+                'font-size: 14px;' +
+                ' transition: all 0.3s ease;' +
+                '">' +
+                '<div class="ag-uploader-spinner" style="' +
+                'width: 20px;' +
+                'height: 20px;' +
+                'border: 3px solid rgba(255, 255, 255, 0.3);' +
+                'border-radius: 50%;' +
+                'border-top-color: #ffffff;' +
+                'animation: ag-spin 0.8s linear infinite;' +
+                '"></div>' +
+                '<span>Adding ' + count + ' image(s) to gallery...</span>' +
+                '<style>' +
+                '@keyframes ag-spin {' +
+                '  to { transform: rotate(360deg); }' +
+                '}' +
+                '</style>' +
+                '</div>';
+            this.ul.before(loadingHtml);
+        },
+        hideLoading: function() {
+            jQuery('#ag-loading-indicator').fadeOut(300, function() {
+                jQuery(this).remove();
+            });
+        },
+        get_thumbnails_batch: function(ids) {
+            var self = this;
+            
+            self.showLoading(ids.length);
+            
+            var data = {
+                action: 'album_gallery_js_batch',
+                slideIds: ids,
+                security: awl_ag_ajax_obj.nonce
+            };
+            
+            jQuery.post(
+                awl_ag_ajax_obj.ajaxurl,
+                data,
+                function(response) {
+                    self.hideLoading();
+                    if (response && response.success && response.data) {
+                        var $newElements = jQuery(response.data);
+                        $newElements.hide().appendTo(self.ul).fadeIn(500);
+                    }
+                }
+            ).fail(function() {
+                self.hideLoading();
+                alert('Error loading images. Please try again.');
+            });
         },
         get_thumbnail: function(id, cb) {
             cb = cb || function() {};

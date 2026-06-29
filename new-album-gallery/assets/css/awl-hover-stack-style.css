@@ -11,15 +11,22 @@ Stacks CSS ---------------------------------------------------------------------
 /* Layout */
 .stack { float: left; /*width: 300px;*/ margin: 0 15% 15% 0; position: relative; z-index: 10; }
 
-/* Image styles */
-.stack img { max-width: 100%; height: auto; vertical-align: bottom; border: 10px solid #fff; border-radius: 3px;
+/* Image container styles (supports skeleton loading without clipping white border and shadow) */
+.stack > div {
+	border: 10px solid #fff;
+	border-radius: 3px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+	position: relative;
+	overflow: hidden;
 }
+
+/* Image styles */
+.stack img { max-width: 100%; height: auto; vertical-align: bottom; border: none !important; box-shadow: none !important; }
 .stack:last-of-type { 
 margin-right: 0;  
 margin-bottom: 0;  

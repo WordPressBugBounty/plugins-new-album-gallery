@@ -6,7 +6,7 @@ if (! defined('ABSPATH')) exit; // Exit if accessed directly
 Plugin Name: Album Gallery
 Plugin URI: http://awplife.com/
 Description: A responsive album gallery to display your photos and videos in beautiful grid layouts.
-Version: 2.1.4
+Version: 2.1.5
 Author: A WP Life
 Author URI: http://awplife.com/
 Text Domain: new-album-gallery
@@ -45,7 +45,7 @@ if (! class_exists('Awl_Album_Gallery')) {
 		{
 
 			//Plugin Version
-			define('AG_PLUGIN_VER', '2.1.4');
+			define('AG_PLUGIN_VER', '2.1.5');
 
 			//Plugin Text Domain
 			define('AGP_TXTDM', 'new-album-gallery');
@@ -88,6 +88,7 @@ if (! class_exists('Awl_Album_Gallery')) {
 			add_action('add_meta_boxes', array($this, '_ag_admin_add_meta_box'));
 
 			add_action('wp_ajax_album_gallery_js', array(&$this, 'ajax_album_gallery'));
+			add_action('wp_ajax_album_gallery_js_batch', array(&$this, 'ajax_album_gallery_batch'));
 
 			add_action('save_post', array(&$this, '_ag_save_settings'));
 
@@ -450,6 +451,33 @@ if (! class_exists('Awl_Album_Gallery')) {
 		}
 
 
+		public function ajax_album_gallery_batch()
+		{
+			// Check nonce
+			check_ajax_referer('album_gallery_js_nonce', 'security');
+
+			// Check capability
+			if (!current_user_can('edit_posts') && !current_user_can('edit_pages')) {
+				wp_send_json_error('Unauthorized');
+			}
+
+			if (isset($_POST['slideIds']) && is_array($_POST['slideIds'])) {
+				$slide_ids = array_map('absint', $_POST['slideIds']);
+				ob_start();
+				foreach ($slide_ids as $slide_id) {
+					if (get_post_type($slide_id) === 'attachment') {
+						$this->_ag_ajax_callback_function($slide_id);
+					}
+				}
+				$output = ob_get_clean();
+				wp_send_json_success($output);
+			} else {
+				wp_send_json_error('No slide IDs provided');
+			}
+			die;
+		}
+
+
 		/**
 		 * Save Global Settings AJAX Callback
 		 */
@@ -619,7 +647,10 @@ if (! class_exists('Awl_Album_Gallery')) {
 			wp_register_style('awl-hover-stack-style-css', AG_PLUGIN_URL . 'assets/css/awl-hover-stack-style.css', array(), AG_PLUGIN_VER);
 			wp_register_style('awl-hover-overlay-effects-css', AG_PLUGIN_URL . 'assets/css/awl-hover-overlay-effects.css', array(), AG_PLUGIN_VER);
 			wp_register_style('awl-hover-overlay-effects-style-css', AG_PLUGIN_URL . 'assets/css/awl-hover-overlay-effects-style.css', array(), AG_PLUGIN_VER);
-			
+
+			// skeleton loader
+			wp_register_script('nag-skeleton-js', AG_PLUGIN_URL . 'assets/js/frontend-skeleton.js', array('jquery'), AG_PLUGIN_VER, true);
+			wp_register_style('nag-skeleton-css', AG_PLUGIN_URL . 'assets/css/frontend-modern.css', array(), AG_PLUGIN_VER);
 		}
 		add_action('wp_enqueue_scripts', 'agp_register_scripts');
 	}
