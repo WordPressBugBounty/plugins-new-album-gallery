@@ -6,7 +6,7 @@ if (! defined('ABSPATH')) exit; // Exit if accessed directly
 Plugin Name: Album Gallery
 Plugin URI: http://awplife.com/
 Description: A responsive album gallery to display your photos and videos in beautiful grid layouts.
-Version: 2.1.5
+Version: 2.1.6
 Author: A WP Life
 Author URI: http://awplife.com/
 Text Domain: new-album-gallery
@@ -45,7 +45,7 @@ if (! class_exists('Awl_Album_Gallery')) {
 		{
 
 			//Plugin Version
-			define('AG_PLUGIN_VER', '2.1.5');
+			define('AG_PLUGIN_VER', '2.1.6');
 
 			//Plugin Text Domain
 			define('AGP_TXTDM', 'new-album-gallery');

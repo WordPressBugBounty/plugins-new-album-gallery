@@ -121,7 +121,7 @@
 .ag-plugins-grid {
     display: grid;
     /* Forced 4-column layout on desktop */
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 24px;
 }
 
@@ -146,7 +146,7 @@
 
 .ag-plugin-card {
     background: white;
-    border-radius: 16px;
+    border-radius: 8px;
     border: 1px solid #e2e8f0;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -174,12 +174,12 @@
 
 /* 🔌 Plugin Banner Height */
 .ag-plugin-banner {
-    height: 150px; 
+    height: 120px; 
 }
 
 /* 🎨 Theme Poster Height */
 .ag-theme-screenshot {
-    height: 320px !important; 
+    height: 240px !important; 
 }
 
 .ag-plugin-banner img {

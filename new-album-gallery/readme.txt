@@ -4,14 +4,16 @@ Donate link: https://paypal.me/awplife
 Tags: album gallery, photo gallery, image gallery, video gallery, lightbox
 Requires at least: 4.0
 Tested up to: 7.0
-Requires PHP: 5.6
-Stable tag: 2.1.5
+Requires PHP: 7.0
+Stable tag: 2.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 An easy-to-use album gallery for Photo & Video display. Works seamlessly with Gutenberg Blocks and Elementor Page Builder.
 
-== Album Gallery for Photo & Video ==
+== Description ==
+
+= Album Gallery for Photo & Video =
 
 Need a clean way to show your media? Our album gallery for Photo & Video makes it simple. It is fully compatible with Gutenberg Blocks and Elementor Page Builder, allowing you to insert and design your collections visually. 
 
@@ -116,8 +118,16 @@ The Pro version adds category filters, custom image sizes, deeper lightbox featu
 
 == Changelog ==
 
+= 2.1.6 =
+* Date: 9 July 2026
+* Fix: Resolved Elementor widget AJAX re-rendering display issues by force-injecting link tags in the preview mode and added a self-executing script to initialize the skeleton loader state immediately.
+* Fix: Upgraded Gutenberg block implementation to apiVersion 3 with ServerSideRender to support dynamic live editor previews.
+* Layout: Standardized CSS layout grid and copied custom aspect ratio/shape properties from the premium plugin version.
+* Fix: Transferred stack hover effect borders from image to wrapper div to prevent clipping in skeleton loading state.
+* New: Implemented high-performance batch image uploading with a premium animated gradient loading spinner.
+
 = 2.1.5 =
-* 2026-06-29
+* Date: 2026-06-29
 * Fix: Resolved Elementor widget AJAX re-rendering display issues by force-injecting link tags in the preview mode and added a self-executing script to initialize the skeleton loader state immediately.
 * Fix: Upgraded Gutenberg block implementation to apiVersion 3 with ServerSideRender to support dynamic live editor previews.
 * Layout: Standardized CSS layout grid and copied custom aspect ratio/shape properties from the premium plugin version.
@@ -125,27 +135,27 @@ The Pro version adds category filters, custom image sizes, deeper lightbox featu
 * New: Implemented high-performance batch image uploading with a premium animated gradient loading spinner.
 
 = 2.1.4 =
-* 2026-06-27
+* Date: 2026-06-27
 * Fix: Added concurrent activation compatibility checks to allow Free and Premium plugins to be active at the same time, with priority on the Premium version.
 
 = 2.1.3 =
-* 2026-06-27
+* Date: 2026-06-27
 * Fix: Updated lightbox thumbnails to load medium size images for enhanced clarity and resolution.
 * Layout: Increased grid spacing and padding between album containers for improved visual separation.
 
 = 2.1.2 =
-* 2026-06-25
+* Date: 2026-06-25
 * New: Added Right-Click Protection integration block in Layout Settings tab.
 * Docs: Documented Right-Click Protection option in Docs page and readme.txt.
 
 = 2.1.1 =
-* 2026-06-20
+* Date: 2026-06-20
 * Security: Gated the `ajax_album_gallery` AJAX handler with explicit capability checks (`edit_posts`/`edit_pages`) and added strict attachment post-type validation to prevent unauthorized metadata disclosure.
 * Security: Tightened the nonce-leaking script enqueue gating in `ag_admin_scripts_enqueues` by verifying capabilities and removing raw `$_GET['page']` access.
 * Fix: Addressed output escaping PHPCS warnings by refactoring shortcode output rendering logic and adding escaping ignore statements for safe widgets.
 
 = 2.1.0 =
-* 2026-06-20
+* Date: 2026-06-20
 * New: Added YouTube video support for video slides.
 * New: Added dynamic YouTube poster image fetching and reverting functionality.
 * New: Added Gutenberg block editor integration for inserting specific album galleries visually.
@@ -154,19 +164,19 @@ The Pro version adds category filters, custom image sizes, deeper lightbox featu
 * Docs: Completely modernized and updated the documentation page and pro comparison charts.
 
 = 2.0.2 =
-* 2026-05-08
+* Date: 2026-05-08
 * New: Added "Album Title Alignment" option to the Global Settings page with support for Default, Even Height, Single Line, or Position Below Images formats.
 * Layout: Standardized CSS classes for layout alignment directly inside external stylesheets.
 * UI/UX: Updated the "Upgrade to Pro" admin dashboard page and comparison lists.
 
 = 2.0.1 =
-* 2026-04-27
+* Date: 2026-04-27
 * Fix: Optimized shortcode flow to allow multiple independent galleries to sit side-by-side in a single row.
 * Layout: Updated grid CSS to prevent horizontal overflow and improved responsive column widths.
 * Layout: Added clearfix to the main grid container to prevent overlapping with theme content.
 
 = 2.0.0 =
-* 2026-04-20
+* Date: 2026-04-20
 * Major: Complete rebranding to "Album Gallery" with standardized internal prefixing (ag-, nag-).
 * Architecture: Purged legacy "Premium" code for full WordPress.org repository compliance.
 * Lightbox: Integrated GPL-compliant LightGallery v1.10.0 for improved stability.
