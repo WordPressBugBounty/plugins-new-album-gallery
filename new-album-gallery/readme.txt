@@ -5,7 +5,7 @@ Tags: album gallery, photo gallery, image gallery, video gallery, lightbox
 Requires at least: 4.0
 Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 2.1.6
+Stable tag: 2.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,6 +117,11 @@ There is no limit. You can create as many album gallery grids as you want.
 The Pro version adds category filters, custom image sizes, deeper lightbox features, and priority support.
 
 == Changelog ==
+
+= 2.1.7 =
+* Date: 20 July 2026
+* Layout: Updated Shortcode column styling on All Galleries list table to match modern design system with monospace container, slate text, and animated copy status feedback.
+* Fix: Enhanced concurrent activation compatibility check to automatically make the Free version dormant when Album Gallery Premium is active.
 
 = 2.1.6 =
 * Date: 9 July 2026

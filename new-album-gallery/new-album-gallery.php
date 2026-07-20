@@ -6,7 +6,7 @@ if (! defined('ABSPATH')) exit; // Exit if accessed directly
 Plugin Name: Album Gallery
 Plugin URI: http://awplife.com/
 Description: A responsive album gallery to display your photos and videos in beautiful grid layouts.
-Version: 2.1.6
+Version: 2.1.7
 Author: A WP Life
 Author URI: http://awplife.com/
 Text Domain: new-album-gallery
@@ -21,12 +21,27 @@ $active_sitewide_plugins = (array) get_site_option('active_sitewide_plugins', ar
 $request_plugin = isset($_REQUEST['plugin']) ? sanitize_text_field(wp_unslash($_REQUEST['plugin'])) : '';
 $is_activating_premium = (strpos($request_plugin, 'album-gallery-premium') !== false);
 
-if (
-	defined('AG_PREMIUM') ||
-	in_array('album-gallery-premium/album-gallery-premium.php', $active_plugins) ||
-	array_key_exists('album-gallery-premium/album-gallery-premium.php', $active_sitewide_plugins) ||
-	$is_activating_premium
-) {
+$is_premium_active = false;
+if (defined('AG_PREMIUM') || $is_activating_premium) {
+	$is_premium_active = true;
+} else {
+	foreach ($active_plugins as $plugin) {
+		if (strpos($plugin, 'album-gallery-premium.php') !== false) {
+			$is_premium_active = true;
+			break;
+		}
+	}
+	if (!$is_premium_active && is_multisite()) {
+		foreach ($active_sitewide_plugins as $plugin => $time) {
+			if (strpos($plugin, 'album-gallery-premium.php') !== false) {
+				$is_premium_active = true;
+				break;
+			}
+		}
+	}
+}
+
+if ($is_premium_active) {
 	return;
 }
 
@@ -45,7 +60,7 @@ if (! class_exists('Awl_Album_Gallery')) {
 		{
 
 			//Plugin Version
-			define('AG_PLUGIN_VER', '2.1.6');
+			define('AG_PLUGIN_VER', '2.1.7');
 
 			//Plugin Text Domain
 			define('AGP_TXTDM', 'new-album-gallery');
@@ -184,7 +199,6 @@ if (! class_exists('Awl_Album_Gallery')) {
 		public function set_album_gallery_shortcode_column_name($defaults)
 		{
 			$new = array();
-			$shortcode = $columns['album_gallery_shortcode'];  // save the tags column
 			unset($defaults['tags']);   // remove it from the columns list
 
 			foreach ($defaults as $key => $value) {
@@ -196,15 +210,15 @@ if (! class_exists('Awl_Album_Gallery')) {
 			return $new;
 		}
 
-		// Albym Gallery cpt shortcode column data
+		// Album Gallery cpt shortcode column data
 		public function custom_album_gallery_shodrcode_data($column, $post_id)
 		{
 			$post_id = (int) $post_id;
 			switch ($column) {
 				case 'album_gallery_shortcode':
-					echo "<input type='text' class='button button-primary' id='album-gallery-shortcode-" . esc_attr($post_id) . "' value='[AGAL id=" . esc_attr($post_id) . "]' style='font-weight:bold; background-color:#32373C; color:#FFFFFF; text-align:center;' />";
-					echo "<input type='button' class='button button-primary' onclick='return ALBUMCopyShortcode" . esc_attr($post_id) . "();' readonly value='" . esc_attr__('Copy', 'new-album-gallery') . "' style='margin-left:4px;' />";
-					echo "<span id='copy-msg-" . esc_attr($post_id) . "' class='button button-primary' style='display:none; background-color:#32CD32; color:#FFFFFF; margin-left:4px; border-radius: 4px;'>" . esc_html__('copied', 'new-album-gallery') . "</span>";
+					echo "<input type='text' id='album-gallery-shortcode-" . esc_attr($post_id) . "' value='[AGAL id=" . esc_attr($post_id) . "]' readonly style='font-weight: 500; font-family: monospace; background-color: #f8fafc; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; padding: 6px 12px; height: 32px; line-height: 18px; box-shadow: none; outline: none; min-width: 140px;' />";
+					echo "<input type='button' onclick='return ALBUMCopyShortcode" . esc_attr($post_id) . "();' readonly value='" . esc_attr__('Copy', 'new-album-gallery') . "' style='font-weight: 600; background-color: #4f46e5; color: #ffffff; border: none; border-radius: 6px; padding: 0 16px; height: 32px; line-height: 32px; cursor: pointer; transition: background 0.15s ease; box-shadow: 0 1px 2px rgba(79, 70, 229, 0.1); margin-left: 6px; display: inline-block; vertical-align: middle;' onmouseover='this.style.background=\"#4338ca\"' onmouseout='this.style.background=\"#4f46e5\"' />";
+					echo "<span id='copy-msg-" . esc_attr($post_id) . "' style='display:none; background-color: #10b981; color: #ffffff; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif; border-radius: 6px; padding: 0 12px; height: 32px; line-height: 32px; margin-left: 6px; vertical-align: middle; font-size: 13px;'>" . esc_html__('copied', 'new-album-gallery') . "</span>";
 ?>
 					<script>
 						function ALBUMCopyShortcode<?php echo (int) $post_id; ?>() {
@@ -213,12 +227,11 @@ if (! class_exists('Awl_Album_Gallery')) {
 							document.execCommand('copy');
 
 							//fade in and out copied message
-							jQuery('#copy-msg-<?php echo (int) $post_id; ?>').fadeIn('1000', 'linear');
+							jQuery('#copy-msg-<?php echo (int) $post_id; ?>').css('display', 'inline-block').hide().fadeIn('500', 'linear');
 							jQuery('#copy-msg-<?php echo (int) $post_id; ?>').fadeOut(2500, 'swing');
 						}
 					</script>
 				<?php
-					break;
 					break;
 			}
 		}
